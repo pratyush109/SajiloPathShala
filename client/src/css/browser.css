@@ -1,0 +1,20 @@
+.browse-page {
+  padding: 40px;
+}
+
+.browse-content {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 30px;
+}
+
+.tutors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+@media (max-width: 1024px) {
+  .browse-content {
+    grid-template-columns: 1fr;
+  }
+}

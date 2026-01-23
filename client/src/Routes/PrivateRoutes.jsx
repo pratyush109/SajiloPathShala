@@ -1,8 +1,9 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { getToken } from '../Utils/storage';
+import { Navigate, Outlet } from "react-router-dom";
+import { getToken } from "../Utils/storage.js";
 
-export const PrivateRoutes = () => {
+const PrivateRoute = () => {
   const token = getToken();
   return token ? <Outlet /> : <Navigate to="/login" replace />;
 };
-export default PrivateRoutes;
+
+export default PrivateRoute;

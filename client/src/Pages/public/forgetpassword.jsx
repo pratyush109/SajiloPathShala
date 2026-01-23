@@ -1,70 +1,69 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Link} from "react-router-dom";
-import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import logo from "../../assets/logo.png";
 import { forgetpassword } from "../../schema/forgetpassword.schema";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-const Forgetpassword = ()=>{
-    const [message, setMessage] = useState("");
- 
+import "../../css/auth.css";
 
+const ForgetPassword = () => {
+  const [message, setMessage] = useState("");
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(forgetpassword),
   });
 
-  const handleforgetpassword = async (data) => {
+  const handleForgetPassword = async (data) => {
     console.log(data);
-     setMessage("A reset link has been sent to your email!");
-  
+    setMessage("A reset link has been sent to your email!");
   };
-    return (
-  <>
-    <div className="auth-wrapper">
-      <div className="auth-card">
-        {/* LEFT SIDE */}
-        <div className="auth-left">
-          <img src={logo} alt="Logo" className="auth-logo" />
-          <h2>Forgot Password?</h2>
-          <p>
-            Enter your email and we’ll send you a reset link to get back into
-            your account.
-          </p>
+
+  return (
+    <div className="fp-page">
+      <div className="fp-card">
+      
+        <div className="fp-brand">
+          <img src={logo} alt="SajiloPathShala" />
+          <span>SajiloPathShala</span>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="auth-right">
-          <form onSubmit={handleSubmit(handleforgetpassword)}>
-            <div className="mb-3">
-              <label>Email</label>
-              <input
-                {...register("email")}
-                type="email"
-                placeholder="Enter your email"
-              />
-              {errors.email && (
-                <small className="error">{errors.email.message}</small>
-              )}
-            </div>
 
-            <button type="submit">Send Reset Link</button>
+        <h2>Reset Password</h2>
+        <p className="subtitle">
+          Enter your email address and we'll send you a password reset link
+        </p>
 
-            {message && (
-              <p className="text-success mt-3 text-center">{message}</p>
+        <form onSubmit={handleSubmit(handleForgetPassword)}>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              {...register("email")}
+              type="email"
+              placeholder="your.email@example.com"
+            />
+            {errors.email && (
+              <small className="error">{errors.email.message}</small>
             )}
+          </div>
 
-            <p className="switch">
-              Remember your password? <Link to="/login">Login</Link>
-            </p>
-          </form>
+          <button type="submit">Send Reset Link</button>
+
+          {message && (
+            <p className="success text-center">{message}</p>
+          )}
+        </form>
+
+        <div className="back-link">
+          <Link to="/login">← Back to login</Link>
         </div>
       </div>
     </div>
-
-  </>
-);
-
+  );
 };
-export default Forgetpassword;
+
+export default ForgetPassword;

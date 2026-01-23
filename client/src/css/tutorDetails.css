@@ -1,0 +1,136 @@
+.tutor-details-page {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  background: #f9fafb;
+}
+
+.tutor-card {
+  background: #fff;
+  width: 900px;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.tutor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tutor-info {
+  display: flex;
+  gap: 20px;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #e8fff3;
+  color: #00c16a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.meta {
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+.price {
+  color: #00c16a;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.book-btn {
+  background: #00c16a;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+hr {
+  margin: 25px 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+section {
+  margin-bottom: 25px;
+}
+
+section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tags span {
+  background: #e8fff3;
+  color: #00c16a;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.tags.gray span {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Review Section */
+
+.review-section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+}
+
+.rating-stars {
+  font-size: 26px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.rating-stars span {
+  color: #d1d5db;
+  margin-right: 6px;
+}
+
+.rating-stars span.active {
+  color: #facc15;
+}
+
+.review-section textarea {
+  width: 100%;
+  min-height: 100px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+  resize: none;
+  outline: none;
+}
+
+.submit-review {
+  margin-top: 12px;
+  background: #00c16a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+}
