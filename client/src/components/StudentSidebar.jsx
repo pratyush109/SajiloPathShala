@@ -1,53 +1,38 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaHome, FaUser, FaClipboardList } from "react-icons/fa";
+import "../style/StudentDashboard"; 
 
 const StudentSidebar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <div
-      className="d-flex flex-column p-3 border-end"
-      style={{
-        width: "240px",
-        minHeight: "100vh",
-        backgroundColor: "#fff",
-      }}
-    >
-      <h4 className="fw-bold mb-4">TutorHub</h4>
+    <div className="app-sidebar">
+     
+      <div className="brand-logo">SajiloPathShala</div>
 
-      <ul className="nav nav-pills flex-column gap-2">
-        <li className="nav-item">
-          <button
-            className="nav-link active text-start"
-            onClick={() => navigate("/student/dashboard")}
-          >
-            <FaHome className="me-2" />
-            Dashboard
-          </button>
-        </li>
+     
+      <div className="sidebar-user">
+        Student Panel
+      </div>
 
-        <li className="nav-item">
-          <button
-            className="nav-link text-start"
-            onClick={() => navigate("/studentprofile")}
-          >
-            <FaUser className="me-2" />
-            Profile
-          </button>
-        </li>
+      <div className="d-flex flex-column gap-2">
+        <button
+          className={`sidebar-link ${isActive("/student/dashboard") ? "active" : ""}`}
+          onClick={() => navigate("/student/dashboard")}
+        >
+          <FaHome />
+          Dashboard
+        </button>
 
-        <li className="nav-item">
-          <button
-            className="nav-link text-start"
-            onClick={() => navigate("/bookings")}
-          >
-            <FaClipboardList className="me-2" />
-            Session Booking
-          </button>
-        </li>
-      </ul>
-    </div>
-  );
-};
+        <button
+          className={`sidebar-link ${isActive("/studentprofile") ? "active" : ""}`}
+          onClick={() => navigate("/studentprofile")}
+        >
+          <FaUser />
+          Profile
+        </button>
 
-export default StudentSidebar;
+ 
