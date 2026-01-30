@@ -35,4 +35,21 @@ const StudentSidebar = () => {
           Profile
         </button>
 
+        <button
+          className={`sidebar-link ${isActive("/bookings") ? "active" : ""}`}
+          onClick={() => navigate("/bookings")}
+        >
+          <FaClipboardList />
+          Session Booking
+        </button>
+      </div>
+
  
+      <div className="sidebar-footer mt-5">
+        © 2026 SajiloPathShala
+      </div>
+    </div>
+  );
+};
+
+export default StudentSidebar;
