@@ -53,3 +53,57 @@
 .profile-card {
   background: linear-gradient(145deg, #ffffff, #f3f4ff);
 }
+
+.app-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #111827, #0f172a);
+  color: #fff;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-logo {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 35px;
+}
+
+.sidebar-user {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #cbd5e1;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.sidebar-link.active {
+  background: var(--brand);
+  color: white;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 13px;
+  opacity: 0.7;
+}
