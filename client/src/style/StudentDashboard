@@ -1,0 +1,55 @@
+:root {
+  --brand: #6c5ce7;
+  --brand-light: #a29bfe;
+  --bg-soft: #f5f7ff;
+}
+
+.dashboard-bg {
+  background: linear-gradient(120deg, #eef2ff, #f8f9ff);
+  min-height: 100vh;
+}
+
+
+.soft-card {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border: none;
+}
+
+
+.stat-card {
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f8f9ff, #ffffff);
+  transition: 0.3s;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+
+.section-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+
+.scroll-list {
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+
+.booking-item {
+  border-radius: 12px;
+  transition: 0.2s;
+}
+.booking-item:hover {
+  background: #f5f6ff;
+}
+
+
+.profile-card {
+  background: linear-gradient(145deg, #ffffff, #f3f4ff);
+}
