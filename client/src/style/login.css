@@ -1,0 +1,96 @@
+:root {
+  --brand-purple: #8e2de2;
+  --brand-purple-dark: #6a11cb;
+}
+
+
+.login-wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+.login-box {
+  max-width: 420px;
+}
+
+
+.login-logo {
+  width: 70px;
+}
+
+
+.login-input .input-group-text {
+  background: #f3f4f6;
+  border-right: 0;
+}
+
+.login-input .form-control {
+  border-left: 0;
+  box-shadow: none !important;
+}
+
+
+.btn-brand {
+  background: linear-gradient(45deg, var(--brand-purple-dark), var(--brand-purple));
+  border: none;
+  color: white;
+  border-radius: 8px;
+}
+
+.btn-brand:hover {
+  opacity: 0.95;
+}
+
+.brand-link {
+  color: var(--brand-purple);
+  text-decoration: none;
+}
+
+.brand-link:hover {
+  text-decoration: underline;
+}
+
+
+.login-art {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.btn-success {
+  background: linear-gradient(45deg, var(--brand-purple-dark), var(--brand-purple));
+  border: none;
+}
+.btn-success:hover { opacity: 0.92; }
+
+
+.text-success {
+  color: var(--brand-purple) !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.auth-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+
+.auth-form {
+  max-width: 420px;
+  width: 100%;
+}
+
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--brand-purple);
+  box-shadow: 0 0 0 0.15rem rgba(142, 45, 226, 0.15);
+}
+

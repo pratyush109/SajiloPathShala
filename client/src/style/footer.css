@@ -1,0 +1,29 @@
+:root {
+  --brand-purple: #8e2de2;
+  --brand-purple-dark: #6a11cb;
+}
+
+.footer-section {
+  background: linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple));
+}
+
+.footer-text {
+  max-width: 360px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-link:hover {
+  opacity: 0.8;
+  padding-left: 5px;
+}
+
+.footer-bottom {
+  background: rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,49 @@
+:root {
+  --brand-purple: #8e2de2;
+  --brand-purple-dark: #6a11cb;
+}
+
+.custom-navbar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+
+.brand-text {
+  color: var(--brand-purple-dark);
+  font-size: 1.2rem;
+}
+
+
+.nav-hover {
+  position: relative;
+  font-weight: 500;
+  color: #333 !important;
+  transition: 0.3s;
+}
+
+.nav-hover::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: var(--brand-purple);
+  left: 0;
+  bottom: -4px;
+  transition: 0.3s;
+}
+
+.nav-hover:hover::after {
+  width: 100%;
+}
+
+.btn-brand {
+  background: linear-gradient(45deg, var(--brand-purple-dark), var(--brand-purple));
+  color: white;
+  border: none;
+}
+
+.btn-brand:hover {
+  opacity: 0.9;
+}

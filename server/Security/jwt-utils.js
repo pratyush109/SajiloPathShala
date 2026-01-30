@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
-export const generateToken = (payload) => {
-  return jwt.sign(payload, "secret-key", { expiresIn: "1h" });
-};
+const JWT_SECRET = "secret-key";
 
+export const generateToken = (payload) => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+};

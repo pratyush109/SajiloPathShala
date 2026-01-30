@@ -1,92 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TutorCard from "../../components/TutorCard";
 import Filters from "../../components/Filter";
 import SearchBar from "../../components/Searchbar";
-import "../../css/browser.css"
-
-const tutorsData = [
-  {
-    name: "Rajesh Sharma",
-    rating: 4.8,
-    bio: "Experienced mathematics teacher with 10 years of expertise",
-    subjects: ["Mathematics", "Physics"],
-    experience: 10,
-    rate: 1500,
-    availability: "Weekdays",
-  },
-  {
-    name: "Priya Thapa",
-    rating: 4.6,
-    bio: "English language specialist focused on communication skills",
-    subjects: ["English", "Literature"],
-    experience: 7,
-    rate: 1200,
-    availability: "Weekends",
-  },
-  {
-    name: "Amit Gurung",
-    rating: 4.9,
-    bio: "Computer Science expert teaching programming and algorithms",
-    subjects: ["Computer Science", "Programming"],
-    experience: 8,
-    rate: 1800,
-    availability: "Any Day",
-  },
-];
+import { useApi } from "../../hooks/useAPI";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const BrowseTutors = () => {
+  const { callApi } = useApi();
+  const [tutors, setTutors] = useState([]);
   const [search, setSearch] = useState("");
-  const [subject, setSubject] = useState("All Subjects");
+  const [subject, setSubject] = useState("");
   const [rating, setRating] = useState(0);
-  const [availability, setAvailability] = useState("Any Day");
+  const [availability, setAvailability] = useState("");
 
   const clearFilters = () => {
-    setSubject("All Subjects");
-    setRating(0);
-    setAvailability("Any Day");
     setSearch("");
+    setSubject("");
+    setRating(0);
+    setAvailability("");
   };
 
-  const filteredTutors = tutorsData.filter((tutor) => {
-    const matchesSearch =
-      tutor.name.toLowerCase().includes(search.toLowerCase()) ||
-      tutor.subjects.join(" ").toLowerCase().includes(search.toLowerCase());
+  useEffect(() => {
+    const fetchTutors = async () => {
+      try {
+        const res = await callApi("GET", "/tutor", {
+          params: { search, subject, rating, availability },
+        });
+        setTutors(res.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
 
-    const matchesSubject =
-      subject === "All Subjects" || tutor.subjects.includes(subject);
-
-    const matchesRating = tutor.rating >= rating;
-
-    const matchesAvailability =
-      availability === "Any Day" || tutor.availability === availability;
-
-    return (
-      matchesSearch &&
-      matchesSubject &&
-      matchesRating &&
-      matchesAvailability
-    );
-  });
+    fetchTutors();
+  }, [search, subject, rating, availability, callApi]);
 
   return (
-    <div className="browse-page">
+    <div className="container my-5">
       <SearchBar search={search} setSearch={setSearch} />
 
-      <div className="browse-content">
-        <Filters
-          subject={subject}
-          setSubject={setSubject}
-          rating={rating}
-          setRating={setRating}
-          availability={availability}
-          setAvailability={setAvailability}
-          clearFilters={clearFilters}
-        />
+      <div className="row mt-4">
+        {/* Filters */}
+        <div className="col-lg-3 mb-4">
+          <Filters
+            subject={subject}
+            setSubject={setSubject}
+            rating={rating}
+            setRating={setRating}
+            availability={availability}
+            setAvailability={setAvailability}
+            clearFilters={clearFilters}
+          />
+        </div>
 
-        <div className="tutors-grid">
-          {filteredTutors.map((tutor, index) => (
-            <TutorCard key={index} tutor={tutor} index={index} />
-          ))}
+    
+        <div className="col-lg-9">
+          {tutors.length === 0 ? (
+            <p className="text-center">
+              No tutors found matching your filters
+            </p>
+          ) : (
+            <div className="d-flex flex-column gap-3">
+              {tutors.map((tutor) => (
+                <TutorCard key={tutor.id} tutor={tutor} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

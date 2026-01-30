@@ -1,4 +1,4 @@
-// routes/authRoutes.js
+
 import express from "express";
 import {
   register,
@@ -11,14 +11,13 @@ import {
 
 const router = express.Router();
 
-// Auth routes
-router.post("/register", register); // register new user
-router.post("/login", login);       // login user
+router.post("/register", register); 
+router.post("/login", login);       
 
-// CRUD routes for users
-router.get("/users", getAllUsers);          // get all users
-router.get("/users/:id", getUserById);      // get user by id
-router.put("/users/:id", updateUser);       // update user
-router.delete("/users/:id", deleteUser);    // delete user
+
+router.get("/users", getAllUsers);         
+router.get("/users/:id", getUserById);     
+router.put("/users/:id", updateUser);      
+router.delete("/users/:id", deleteUser);    
 
 export default router;

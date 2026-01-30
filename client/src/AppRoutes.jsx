@@ -10,13 +10,16 @@ const SignupPage = React.lazy(() =>import( './Pages/public/Signup'));
 const ForgetPasswordPage =  React.lazy(() =>import( './Pages/public/forgetpassword'));
 const Home =  React.lazy(() =>import('./Pages/public/Home'));
 
-const TutorDashboard =  React.lazy(() =>import ('./Pages/private/tutordashboard'));
+const TutorDashboard =  React.lazy(() =>import('./Pages/private/TutorDashboard'));
 
 const EditTutorProfile = React.lazy(() =>import( './Pages/private/EditTutorProfile'));
-const StudentDashboard = React.lazy(() =>import( "./Pages/private/studentdashboard"));
+const StudentDashboard = React.lazy(() =>import( "./Pages/private/StudentDashboard"));
 const EditStudentProfile=  React.lazy(() =>import ("./Pages/private/EditStudentProfile"));
 const BrowseTutors = React.lazy(() =>import("./Pages/private/BrowserTutor"));
 const TutorDetails = React.lazy(() =>import( "./Pages/private/TutorDetails"));
+
+const AdminDashboard = React.lazy(() =>import( "./Pages/admin/AdminDashboard"));
+
 
  const AppRoutes = () => {
    return (
@@ -36,8 +39,7 @@ const TutorDetails = React.lazy(() =>import( "./Pages/private/TutorDetails"));
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
-       
-
+        
       
         <Route path="/" element={<Home />} />
 
@@ -46,9 +48,10 @@ const TutorDetails = React.lazy(() =>import( "./Pages/private/TutorDetails"));
           <Route path="/studentdashboard" element={<StudentDashboard />} />
           <Route path="/tutordashboard" element={<TutorDashboard />} />
           <Route path="/studentprofile" element={<EditStudentProfile />} />
-          <Route path="/tutorprofile" element={<EditTutorProfile />} />
+          <Route path="/tutor/profile" element={<EditTutorProfile />} />
           <Route path="/browser" element={<BrowseTutors />} />
           <Route path="/tutor/:id" element={<TutorDetails />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
         </Route>
       </Routes>
     </Suspense>

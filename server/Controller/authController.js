@@ -54,12 +54,19 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Incorrect password" });
 
-    const access_token = generateToken({ id: user.id, email: user.email, role: user.role });
+    const access_token = generateToken({ id: user.id, email: user.email, role: user.role, fullName: user.fullName });
+res.status(200).json({
+  message: "Login successful",
+  data: {
+    access_token,
+    role: user.role,
+    fullName: user.fullName,
+    email: user.email,
+    id: user.id
+  },
+});
 
-    res.status(200).json({
-      message: "Login successful",
-      data: { access_token },
-    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

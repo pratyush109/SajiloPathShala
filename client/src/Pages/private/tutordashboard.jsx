@@ -1,110 +1,168 @@
-import "../../css/tutorDashboard.css";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useApi } from "../../hooks/useAPI";
 import SessionRequests from "../../components/SessionsRequests";
-import { Link } from "react-router-dom";
+
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaStar,
+  FaUser,
+  FaUsers,
+  FaMoneyBillWave,
+  FaTachometerAlt,
+} from "react-icons/fa";
 
 const TutorDashboard = () => {
-  const sessions=[
-    {
-      _id: "1",
-      studentName: "Rajesh Hamal",
-      subject: "Mathematics",
-      date: "Jan 25",
-      time: "10:00 AM",
-      status: "PENDING",
-    },
-  ];
+  const { callApi } = useApi();
+  const location = useLocation();
 
+  const [sessions, setSessions] = useState([]);
+  const [profile, setProfile] = useState({
+    fullName: "",
+    rating: 0,
+    totalReviews: 0,
+    hourlyRate: 0,
+  });
 
-  const approveSession =(id) =>{
-    console.log("Approved:",id);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const res = await callApi("GET", "/tutor/profile");
+      setProfile(res.data);
+    };
+
+    const fetchSessions = async () => {
+      const res = await callApi("GET", "/booking");
+      setSessions(res.data.data);
+    };
+
+    fetchProfile();
+    fetchSessions();
+  }, [callApi]);
+
+  const approveSession = async (id) => {
+    await callApi("PATCH", `/booking/${id}`, {
+      data: { status: "APPROVED" },
+    });
+    setSessions((prev) =>
+      prev.map((s) =>
+        String(s.id) === String(id) ? { ...s, status: "APPROVED" } : s
+      )
+    );
   };
 
-  const rejectSession=(id)=>{
-    console.log("Rejected:",id);
+  const rejectSession = async (id) => {
+    await callApi("PATCH", `/booking/${id}`, {
+      data: { status: "REJECTED" },
+    });
+    setSessions((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, status: "REJECTED" } : s))
+    );
   };
-  
+
+  const totalSessions = sessions.length;
+  const pendingSessions = sessions.filter((s) => s.status === "PENDING").length;
+
+  const isActive = (path) => location.pathname === path;
+
   return (
+    <div className="d-flex bg-light min-vh-100">
     
-    <div className="dashboard-wrapper">
-  
-      <div className="dashboard-header">
-        <h1>Welcome back, Pratyush!</h1>
-        <p>Manage your tutoring sessions</p>
-      </div>
+      <aside
+        className="bg-white border-end p-3"
+        style={{ width: "240px" }}
+      >
+        <h5 className="fw-bold mb-4 text-primary">SajiloPathShala</h5>
 
-  
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div>
-            <span>Total Sessions</span>
-            <h2>0</h2>
-          </div>
-          <div className="stat-icon green">📅</div>
-        </div>
+        <nav className="d-flex flex-column gap-2">
+          <Link
+            to="/tutordashboard"
+            className={`btn text-start d-flex align-items-center gap-2 ${
+              isActive("/tutordashboard")
+                ? "btn-light fw-semibold"
+                : "btn-white"
+            }`}
+          >
+            <FaTachometerAlt /> Dashboard
+          </Link>
 
-        <div className="stat-card">
-          <div>
-            <span>Pending</span>
-            <h2>0</h2>
-          </div>
-          <div className="stat-icon yellow">⏰</div>
-        </div>
+          <Link
+            to="/tutor/bookings"
+            className="btn btn-white text-start d-flex align-items-center gap-2"
+          >
+            <FaCalendarAlt /> Session Booking
+          </Link>
 
-        <div className="stat-card">
-          <div>
-            <span>Rating</span>
-            <h2>0</h2>
-          </div>
-          <div className="stat-icon green">⭐</div>
-        </div>
+          <Link
+            to="/tutor/profile"
+            className="btn btn-white text-start d-flex align-items-center gap-2"
+          >
+            <FaUser /> Profile
+          </Link>
+        </nav>
+      </aside>
 
-        <div className="stat-card">
-          <div>
-            <span>Reviews</span>
-            <h2>0</h2>
-          </div>
-          <div className="stat-icon green">⭐</div>
-        </div>
-      </div>
-
-      {/* MAIN CONTENT */}
-      <div className="dashboard-main">
+     
+      <main className="flex-grow-1 p-4">
         
-        
-        <SessionRequests
-
-        sessions={sessions}
-        onApprove={approveSession}
-        onReject={rejectSession}
-        />
-        
-        <div className="profile-box">
-          <h3>My Profile</h3>
-
-          <div className="profile-row">
-            <span>Name</span>
-            <strong>Pratyush</strong>
-          </div>
-
-          <div className="profile-row">
-            <span>Rating</span>
-            <strong className="rating">
-              ⭐ 0 <span>(0)</span>
-            </strong>
-          </div>
-
-          <div className="profile-row">
-            <span>Hourly Rate</span>
-            <strong>NPR 2222</strong>
-          </div>
-
-       <Link to="/tutorprofile">
-  <button className="edit-btn">
-    👤 Edit Profile
-  </button>
-</Link>
+        <div className="mb-4">
+          <h2 className="fw-bold">Tutor Dashboard</h2>
+          <p className="text-muted">Manage your classes and students</p>
         </div>
-      </div>
+
+       
+
+        <div className="row g-3 mb-4">
+          <div className="col-md-4">
+            <div className="card p-3 shadow-sm d-flex justify-content-between flex-row align-items-center">
+              <div>
+                <div className="text-muted small">Total Students</div>
+                <h4>{totalSessions}</h4>
+              </div>
+              <FaUsers className="fs-3 text-primary" />
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="card p-3 shadow-sm d-flex justify-content-between flex-row align-items-center">
+              <div>
+                <div className="text-muted small">This Month Earnings</div>
+                <h4>₹45,000</h4>
+              </div>
+              <FaMoneyBillWave className="fs-3 text-success" />
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="card p-3 shadow-sm d-flex justify-content-between flex-row align-items-center">
+              <div>
+                <div className="text-muted small">Pending Requests</div>
+                <h4>{pendingSessions}</h4>
+              </div>
+              <FaClock className="fs-3 text-warning" />
+            </div>
+          </div>
+        </div>
+
+        
+        <div className="row g-4">
+          <div className="col-lg-8">
+            <div className="card p-3 shadow-sm">
+              <h5 className="mb-3">Session Requests</h5>
+              <SessionRequests
+                sessions={sessions}
+                onApprove={approveSession}
+                onReject={rejectSession}
+              />
+            </div>
+          </div>
+
+          
+
+            
+         
+        </div>
+      </main>
     </div>
   );
 };

@@ -1,95 +1,196 @@
-import { useState } from "react";
-import "../../css/tutorDetails.css";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import { useApi } from "../../hooks/useAPI";
+import { FaStar, FaClock } from "react-icons/fa";
 
 const TutorDetails = () => {
-  const {state: tutor} = useLocation();
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
+  const { id } = useParams();
+  const { state } = useLocation();
+  const { callApi } = useApi();
 
-  const handleSubmitReview = () => {
-    if (!rating || !review.trim()) {
-      alert("Please give rating and write review");
+  const [tutor, setTutor] = useState(state || null);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [sessions, setSessions] = useState([]);
+
+  useEffect(() => {
+    if (!state) {
+      const fetchTutor = async () => {
+        try {
+          const res = await callApi("GET", `/tutors/${id}`);
+          setTutor(res.data);
+        } catch (err) {
+          console.log(err.message);
+        }
+      };
+      fetchTutor();
+    }
+  }, [id, state, callApi]);
+
+  const fetchSessions = async () => {
+    try {
+      const res = await callApi("GET", "/booking");
+      setSessions(res.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchSessions();
+  }, []);
+
+  if (!tutor) return <p className="text-center">Loading tutor...</p>;
+
+  const handleBookSession = async () => {
+    if (!date || !time) {
+      alert("Please select date and time");
       return;
     }
-    console.log({ rating, review });
+
+    setLoading(true);
+    try {
+    
+await callApi("POST", "/booking", {
+
+  data: {
+    data: {  
+      tutorId: tutor.id,
+      date,
+      time,
+      subject: tutor.subjects?.[0],
+    }
+  }
+});
+
+      alert("Session booked successfully!");
+
+     fetchSessions();
+    } catch (err) {
+      alert(err.message || "Failed to book session");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="tutor-details-page">
-      <div className="tutor-card">
-      
-        <div className="tutor-header">
-          <div className="tutor-info">
-            <div className="avatar">R</div>
+    <div className="container py-4">
+      <div className="row g-4">
+        {/* LEFT – BOOK A CLASS */}
+        <div className="col-lg-8">
+          <div className="card p-4 shadow-sm">
+            <h5 className="mb-4">Book a Class</h5>
 
-            <div>
-              <h2>Rajesh Sharma</h2>
-              <div className="meta">
-                ⭐ 4.8 <span>•</span> ⏱ 10 years
-              </div>
-              <p className="price">Rs. 1500/hour</p>
+          
+            <div className="mb-3">
+              <label className="form-label">Select Subject</label>
+              <select className="form-select">
+                <option>Choose a subject</option>
+                {tutor.subjects?.map((sub, i) => (
+                  <option key={i}>{sub}</option>
+                ))}
+              </select>
             </div>
-          </div>
 
-          <button className="book-btn">Book Session</button>
+          
+            <div className="row mb-4">
+              <div className="col-md-6">
+                <label className="form-label">Select Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Select Time</label>
+                <input
+                  type="time"
+                  className="form-control"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <button
+              className="btn w-100 text-white"
+              style={{ backgroundColor: "#0cb01c" }}
+              onClick={handleBookSession}
+              disabled={loading}
+            >
+              {loading ? "Booking..." : "Confirm Booking"}
+            </button>
+          </div>
         </div>
 
-        <hr />
+        <div className="col-lg-4">
+          <div className="card p-4 shadow-sm">
+            <h6 className="mb-3">Booking Summary</h6>
 
-        
-        <section>
-          <h3>About</h3>
-          <p>
-            Experienced mathematics teacher with 10 years of expertise
-          </p>
-        </section>
+         
+            <div className="d-flex align-items-center gap-3 mb-3">
+              <div
+                className="rounded-circle bg-success text-white d-flex align-items-center justify-content-center"
+                style={{ width: 48, height: 48, fontWeight: 600 }}
+              >
+                {tutor.fullName?.[0]}
+              </div>
+              <div>
+                <div className="fw-semibold">{tutor.fullName}</div>
+                <div className="text-muted small">
+                  {tutor.subjects?.join(", ")}
+                </div>
+              </div>
+            </div>
 
-    
-        <section>
-          <h3>Subjects</h3>
-          <div className="tags">
-            <span>Mathematics</span>
-            <span>Physics</span>
-          </div>
-        </section>
+            <hr />
+
+            <div className="small d-flex justify-content-between mb-2">
+              <span>Experience</span>
+              <span>{tutor.experience} years</span>
+            </div>
+
+            <div className="small d-flex justify-content-between mb-2">
+              <span>Rating</span>
+              <span className="text-warning">
+                <FaStar /> {tutor.rating }
+              </span>
+            </div>
 
       
-        <section>
-          <h3>Availability</h3>
-          <div className="tags gray">
-            <span>Monday</span>
-            <span>Wednesday</span>
-            <span>Friday</span>
-          </div>
-        </section>
+            <hr />
 
+            <div className="mb-3">
+              <h6 className="small fw-semibold mb-2">Available Timing</h6>
 
-        <section className="review-section">
-          <h3>Write a Review</h3>
+              {tutor.availability
+                ? Object.entries(tutor.availability)
+                    .filter(([_, value]) => value)
+                    .map(([day], i) => (
+                      <div
+                        key={i}
+                        className="d-flex align-items-center gap-2 small text-muted mb-1"
+                      >
+                        <FaClock />
+                        {day}
+                      </div>
+                    ))
+                : <span className="text-muted small">No availability set</span>}
+            </div>
 
-          <div className="rating-stars">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={rating >= star ? "active" : ""}
-                onClick={() => setRating(star)}
-              >
-                ★
+            <hr />
+
+            <div className="small fw-semibold d-flex justify-content-between">
+              <span>Class Fee</span>
+              <span className="text-success">
+                NPR{tutor.hourlyRate}/hr
               </span>
-            ))}
+            </div>
           </div>
-
-          <textarea
-            placeholder="Write your review..."
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
-          />
-
-          <button className="submit-review" onClick={handleSubmitReview}>
-            Submit Review
-          </button>
-        </section>
+        </div>
       </div>
     </div>
   );
