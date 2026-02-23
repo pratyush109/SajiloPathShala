@@ -1,0 +1,49 @@
+:root {
+  --brand-purple: #7c3aed;
+  --brand-purple-dark: #5b21b6;
+  --soft-bg: #f9fafb;
+  --card-border: #eef2f7;
+}
+
+/* Page Background */
+.app-bg {
+  background: linear-gradient(135deg, #f9fafb, #eef2ff);
+}
+
+/* Card */
+.brand-card {
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
+}
+
+/* Heading */
+.brand-heading {
+  color: var(--brand-purple-dark);
+  font-weight: 700;
+}
+
+/* Buttons */
+.btn-brand {
+  background: var(--brand-purple);
+  border: none;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.btn-brand:hover {
+  background: var(--brand-purple-dark);
+}
+
+/* Profile Image Ring */
+.profile-ring {
+  padding: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-purple), #a78bfa);
+}
+
+/* Inputs Focus */
+.form-control:focus {
+  border-color: var(--brand-purple);
+  box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
+}

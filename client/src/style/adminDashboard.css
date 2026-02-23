@@ -1,0 +1,121 @@
+:root {
+  --primary: #6a11cb;
+  --primary-light: #8e2de2;
+  --dark: #111827;
+  --gray: #6b7280;
+  --bg-soft: #f8f9fc;
+}
+
+.admin-layout {
+  background: var(--bg-soft);
+}
+
+.admin-sidebar {
+  width: 240px;
+  background: white;
+  border-right: 1px solid #eee;
+}
+
+.admin-logo {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.sidebar-btn {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.sidebar-btn:hover {
+  background: #f3e8ff;
+  color: var(--primary);
+}
+
+.sidebar-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.stat-number {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.stat-label {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.admin-table {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.badge-soft {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.badge-warning-soft {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge-success-soft {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge-danger-soft {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+.btn-brand {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+}
+.chart-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+@media (max-width: 992px) {
+  .admin-sidebar {
+    width: 70px;
+  }
+  .admin-logo {
+    display: none;
+  }
+  .sidebar-btn {
+    text-align: center;
+    font-size: 0;
+  }
+  .sidebar-btn svg {
+    font-size: 20px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .stat-card {
+    text-align: center;
+  }
+  .chart-card {
+    padding: 16px;
+  }
+}

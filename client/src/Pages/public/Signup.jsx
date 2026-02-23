@@ -7,7 +7,7 @@ import { SignupSchema } from "../../schema/signup.schema";
 import { useApi } from "../../hooks/useAPI";
 
 import logo from "../../assets/logo.png";
-import studyImg from "../../assets/study.png";
+import studyImg from "../../assets/tutor.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../style/login.css";
 

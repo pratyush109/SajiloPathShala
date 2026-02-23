@@ -1,0 +1,46 @@
+:root {
+  --primary: #6a11cb;
+  --primary-light: #8e2de2;
+  --dark: #111827;
+  --gray: #6b7280;
+  --bg-soft: #f8f9fc;
+}
+/* Filter Card */
+.filter-card {
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.08);
+}
+
+/* Section Labels */
+.filter-label {
+  font-weight: 600;
+  color: var(--brand-purple-dark);
+}
+
+/* Select + Range focus */
+.form-select:focus,
+.form-range:focus {
+  border-color: var(--brand-purple);
+  box-shadow: 0 0 0 0.15rem rgba(124, 58, 237, 0.15);
+}
+
+/* Range track color */
+.form-range::-webkit-slider-thumb {
+  background: var(--brand-purple);
+}
+.form-range::-moz-range-thumb {
+  background: var(--brand-purple);
+}
+
+/* Clear button */
+.btn-clear {
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.btn-clear:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}

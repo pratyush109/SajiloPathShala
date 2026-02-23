@@ -3,7 +3,7 @@ import Users from "../Model/userModel.js";
 
 export const createBooking = async (req, res) => {
   try {
-    const { tutorId, date, time, subject } = req.body.data;
+    const { tutorId, date, time, subject } = req.body;
     const studentId = req.user.id;
 
     if (!tutorId || !date || !time || !subject)
@@ -40,7 +40,7 @@ export const getBookingsForUser = async (req, res) => {
         ? { tutorId: userId }
         : role === "student"
         ? { studentId: userId }
-        : {}; // admin sees all
+        : {}; 
 
     const bookings = await Booking.findAll({
       where,
@@ -51,15 +51,14 @@ export const getBookingsForUser = async (req, res) => {
     });
 
     const formatted = bookings.map((b) => ({
-      id: b.id,
-      studentName: b.student.fullName,
-      tutorName: b.tutor.fullName,
-      subject: b.subject || "N/A",
-      date: b.date,
-      time: b.time,
-      status: b.status,
-    }));
-
+  id: b.id,
+  studentName: b.student.fullName,
+  tutorName: b.tutor.fullName,
+  subject: b.subject && b.subject.trim() !== "" ? b.subject : "Unknown", // ← fix here
+  date: b.date,
+  time: b.time,
+  status: b.status,
+}));
     res.status(200).json({ data: formatted });
   } catch (error) {
     res.status(500).json({ message: error.message });

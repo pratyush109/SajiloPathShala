@@ -1,0 +1,71 @@
+:root {
+  --primary: #6a11cb;
+  --primary-light: #8e2de2;
+  --dark: #111827;
+  --gray: #6b7280;
+  --bg-soft: #f8f9fc;
+}
+.tutor-card {
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.06);
+}
+
+.tutor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(124, 58, 237, 0.14);
+}
+
+.tutor-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-purple), #a78bfa);
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.subject-badge {
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--brand-purple-dark);
+  font-weight: 600;
+  border-radius: 50px;
+}
+
+.btn-profile {
+  background: var(--brand-purple);
+  border: none;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+.btn-profile:hover {
+  background: var(--brand-purple-dark);
+}
+
+/* Fade & slide animation */
+.tutor-card-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.tutor-card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.tutor-card-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tutor-card-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+/* TutorCards container */
+.d-flex.flex-column.gap-3 {
+  min-height: 300px; /* or any reasonable height */
+  position: relative;
+}

@@ -6,11 +6,23 @@ const Booking = sequelize.define(
   "Booking",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+
     studentId: { type: DataTypes.INTEGER, allowNull: false },
     tutorId: { type: DataTypes.INTEGER, allowNull: false },
+
     date: { type: DataTypes.DATEONLY, allowNull: false },
     time: { type: DataTypes.STRING, allowNull: false },
-    status: { type: DataTypes.ENUM("PENDING", "APPROVED", "REJECTED"), defaultValue: "PENDING" },
+
+  
+    subject: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    status: {
+      type: DataTypes.ENUM("PENDING", "APPROVED", "REJECTED", "COMPLETED"),
+      defaultValue: "PENDING",
+    },
   },
   { tableName: "bookings", timestamps: true }
 );

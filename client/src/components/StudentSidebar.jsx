@@ -1,7 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaHome, FaUser, FaClipboardList } from "react-icons/fa";
-import "../style/StudentDashboard"; 
-
+import "../style/StudentDashboard.css"; 
 const StudentSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -10,18 +9,17 @@ const StudentSidebar = () => {
 
   return (
     <div className="app-sidebar">
-     
-      <div className="brand-logo">SajiloPathShala</div>
+    
 
-     
       <div className="sidebar-user">
         Student Panel
       </div>
 
+      
       <div className="d-flex flex-column gap-2">
         <button
-          className={`sidebar-link ${isActive("/student/dashboard") ? "active" : ""}`}
-          onClick={() => navigate("/student/dashboard")}
+          className={`sidebar-link ${isActive("/studentdashboard") ? "active" : ""}`}
+          onClick={() => navigate("/studentdashboard")}
         >
           <FaHome />
           Dashboard
@@ -34,20 +32,16 @@ const StudentSidebar = () => {
           <FaUser />
           Profile
         </button>
-
         <button
           className={`sidebar-link ${isActive("/bookings") ? "active" : ""}`}
           onClick={() => navigate("/bookings")}
         >
-          <FaClipboardList />
-          Session Booking
+      
+         
         </button>
       </div>
 
- 
-      <div className="sidebar-footer mt-5">
-        © 2026 SajiloPathShala
-      </div>
+
     </div>
   );
 };

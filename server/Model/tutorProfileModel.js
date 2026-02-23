@@ -29,10 +29,13 @@ const TutorProfile = sequelize.define("TutorProfile", {
     allowNull: false
   },
 
+
   availability: {
     type: DataTypes.JSON,
     allowNull: false
-  }
+  },
+
+
 });
 
 

@@ -1,17 +1,29 @@
 import { Link } from "react-router-dom";
 import heroImg from "../../assets/study.png";
 import Footer from "../../components/footer";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { FaChalkboardTeacher, FaCalendarAlt, FaStar, FaBookOpen } from "react-icons/fa";
-import "../../style/home.css"; // create this file
+import {
+  FaSearch,
+  FaUserCheck,
+  FaClock,
+  FaStar,
+  FaChalkboardTeacher,
+  FaCalendarAlt,
+} from "react-icons/fa";
+import "../../style/home.css";
 
 const FeatureCard = ({ icon, title, text }) => (
-  <div className="col-md-6 col-lg-3">
-    <div className="card border-0 shadow-sm h-100 p-4 text-center feature-card">
-      <div className="fs-2 text-purple mb-3">{icon}</div>
-      <h6 className="fw-bold">{title}</h6>
-      <p className="small text-muted">{text}</p>
-    </div>
+  <div className="feature-card">
+    <div className="feature-icon">{icon}</div>
+    <h6>{title}</h6>
+    <p>{text}</p>
+  </div>
+);
+
+const StepCard = ({ icon, title, text }) => (
+  <div className="step-card">
+    <div className="step-icon">{icon}</div>
+    <h6>{title}</h6>
+    <p>{text}</p>
   </div>
 );
 
@@ -19,120 +31,111 @@ const Home = () => {
   return (
     <>
      
-      <section className="hero-section text-white position-relative">
-        <div className="container py-5">
-          <div className="row align-items-center">
-            <div className="col-lg-6 text-center text-lg-start">
-              <p className="fw-semibold opacity-75">
-                Affordable & High Quality Education
-              </p>
+      <section className="hero">
+        <div className="container hero-grid">
+          <div className="hero-content">
+            <span className="hero-badge">Trusted by 2000+ students</span>
 
-              <h1 className="display-4 fw-bold mb-3">
-                Learn With Our <br />
-                <span className="text-warning">Online Tutors!</span>
-              </h1>
+            <h1>
+              Find a tutor who <span>actually fits</span> your learning style
+            </h1>
 
-              <p className="opacity-75 mb-4">
-                Connect with expert tutors, attend live classes, and rewatch lessons anytime.
-                Personalized learning made simple.
-              </p>
+            <p>
+              Browse verified tutors, compare teaching styles, and book sessions
+              that match your schedule and goals.
+            </p>
 
-              <div className="d-flex gap-3 justify-content-center justify-content-lg-start">
-                <Link to="/browser" className="btn btn-success btn-lg fw-semibold">
-                  Learn More
-                </Link>
-                <Link to="/signup" className="btn btn-outline-light btn-lg">
-                  Get Tutor
-                </Link>
+            <div className="hero-actions">
+              <Link to="/browser" className="btn-primary">
+                Find a Tutor
+              </Link>
+              <Link to="/signup" className="btn-secondary">
+                Become a Tutor
+              </Link>
+            </div>
+
+            <div className="hero-stats">
+              <div>
+                <strong>180+</strong>
+                <span>Verified Tutors</span>
+              </div>
+              <div>
+                <strong>4.8★</strong>
+                <span>Average Rating</span>
+              </div>
+              <div>
+                <strong>100%</strong>
+                <span>Secure Booking</span>
               </div>
             </div>
+          </div>
 
-            <div className="col-lg-6 text-center mt-4 mt-lg-0">
-              <img src={heroImg} alt="Tutor" className="img-fluid hero-img" />
-            </div>
+          <div className="hero-image">
+            <img src={heroImg} alt="Learning with tutor" />
           </div>
         </div>
-
-        <div className="wave"></div>
       </section>
 
-      <section className="py-5 bg-white">
-        <div className="container text-center">
-          <div className="row g-4">
+      {/* FEATURE PREVIEW */}
+      <section className="features">
+        <div className="container">
+          <h2>Why students choose our tutors</h2>
+          <p className="section-subtitle">
+            Designed to help you learn faster, safer, and with confidence.
+          </p>
+
+          <div className="features-grid">
             <FeatureCard
               icon={<FaChalkboardTeacher />}
-              title="Face to Face Learning"
-              text="Interactive live sessions with expert tutors."
+              title="Verified tutors only"
+              text="Every tutor is manually reviewed for quality and expertise."
             />
             <FeatureCard
               icon={<FaCalendarAlt />}
-              title="Share & Collaborate"
-              text="Work together using shared tools and resources."
+              title="Flexible scheduling"
+              text="Book sessions that fit around your daily routine."
             />
             <FeatureCard
               icon={<FaStar />}
-              title="Monthly Conference"
-              text="Attend special workshops and webinars."
-            />
-            <FeatureCard
-              icon={<FaBookOpen />}
-              title="Rewatch Lessons"
-              text="Access recorded sessions anytime."
+              title="Real student reviews"
+              text="Honest feedback from learners just like you."
             />
           </div>
         </div>
       </section>
 
-      <section className="py-5">
+      {/* HOW IT WORKS */}
+      <section className="how-it-works">
         <div className="container">
-          <div className="row align-items-center g-5">
-            <div className="col-lg-6 text-center">
-              <img src={heroImg} alt="" className="img-fluid rounded shadow-sm" />
-            </div>
+          <h2>How it works</h2>
 
-            <div className="col-lg-6">
-              <h2 className="fw-bold mb-3">Why Choose SajiloPathShala?</h2>
-              <p className="text-muted">
-                We connect students with professional tutors for flexible and
-                effective learning. Study anytime, anywhere.
-              </p>
-
-              <div className="row text-center mt-4">
-                <div className="col-4">
-                  <h3 className="fw-bold text-success">2000+</h3>
-                  <p className="small text-muted">Students</p>
-                </div>
-                <div className="col-4">
-                  <h3 className="fw-bold text-success">180+</h3>
-                  <p className="small text-muted">Teachers</p>
-                </div>
-                <div className="col-4">
-                  <h3 className="fw-bold text-success">4000+</h3>
-                  <p className="small text-muted">Users</p>
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <Link to="/signup" className="btn btn-success me-3">
-                  Get Started
-                </Link>
-                <Link to="/browser" className="btn btn-outline-secondary">
-                  Learn More
-                </Link>
-              </div>
-            </div>
+          <div className="steps-grid">
+            <StepCard
+              icon={<FaSearch />}
+              title="Browse tutors"
+              text="Explore tutors by subject, level, and availability."
+            />
+            <StepCard
+              icon={<FaUserCheck />}
+              title="Compare confidently"
+              text="See profiles, teaching styles, and verified reviews."
+            />
+            <StepCard
+              icon={<FaClock />}
+              title="Book instantly"
+              text="Choose a time and start learning without back-and-forth."
+            />
           </div>
         </div>
       </section>
 
-      <section className="py-5 text-center text-white cta-section">
+      {/* FINAL CTA */}
+      <section className="final-cta">
         <div className="container">
-          <h2 className="fw-bold">Ready to Start Learning?</h2>
-          <p className="mb-4">
-            Join thousands of students already learning with SajiloPathShala
-          </p>
-          <Link to="/signup" className="btn btn-light btn-lg fw-semibold">
-            Sign Up for Free
+          <h2>Start learning today</h2>
+          <p>No subscriptions. No pressure. Just great tutors.</p>
+          <Link to="/browser" className="btn-primary large">
+            Browse Tutors
           </Link>
         </div>
       </section>

@@ -11,29 +11,38 @@ const BrowseTutors = () => {
   const [search, setSearch] = useState("");
   const [subject, setSubject] = useState("");
   const [rating, setRating] = useState(0);
-  const [availability, setAvailability] = useState("");
+  const [subjectRefresh, setSubjectRefresh] = useState(0); // <-- refresh trigger
 
   const clearFilters = () => {
     setSearch("");
     setSubject("");
     setRating(0);
-    setAvailability("");
   };
 
+  // Fetch tutors whenever filters change
   useEffect(() => {
     const fetchTutors = async () => {
       try {
         const res = await callApi("GET", "/tutor", {
-          params: { search, subject, rating, availability },
+          params: { search, subject, rating },
         });
         setTutors(res.data);
       } catch (err) {
         console.log(err.message);
       }
     };
-
     fetchTutors();
-  }, [search, subject, rating, availability, callApi]);
+  }, [search, subject, rating, callApi]);
+
+  // Listen for tutor profile updates
+  useEffect(() => {
+    const handleSubjectsUpdated = () => {
+      setSubjectRefresh((prev) => prev + 1); // trigger Filters to refresh subjects
+    };
+
+    window.addEventListener("subjectsUpdated", handleSubjectsUpdated);
+    return () => window.removeEventListener("subjectsUpdated", handleSubjectsUpdated);
+  }, []);
 
   return (
     <div className="container my-5">
@@ -45,24 +54,19 @@ const BrowseTutors = () => {
           <Filters
             subject={subject}
             setSubject={setSubject}
-            rating={rating}
-            setRating={setRating}
-            availability={availability}
-            setAvailability={setAvailability}
             clearFilters={clearFilters}
+            refreshTrigger={subjectRefresh} // <-- pass refreshTrigger
           />
         </div>
 
-    
+        {/* Tutor Cards */}
         <div className="col-lg-9">
           {tutors.length === 0 ? (
-            <p className="text-center">
-              No tutors found matching your filters
-            </p>
+            <p className="text-center">No tutors found matching your filters</p>
           ) : (
             <div className="d-flex flex-column gap-3">
               {tutors.map((tutor) => (
-                <TutorCard key={tutor.id} tutor={tutor} />
+                <TutorCard key={tutor.User.id} tutor={tutor} />
               ))}
             </div>
           )}

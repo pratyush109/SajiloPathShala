@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import { editTutorProfileSchema } from "../../schema/editTutorProfile.schema";
 import { useApi } from "../../hooks/useAPI";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../../style/EditTutorProfile.css";
 
 const EditTutorProfile = () => {
   const { callApi } = useApi();
@@ -60,7 +60,7 @@ const EditTutorProfile = () => {
       }
     };
     fetchProfile();
-  }, [callApi, reset]);
+  }, []);
 
   const addSubject = () => {
     const trimmed = subjectInput.trim();
@@ -76,190 +76,167 @@ const EditTutorProfile = () => {
     );
   };
 
-  const onSubmit = async (data) => {
-    setLoading(true);
-    try {
-      await callApi("PUT", "/tutor/profile", { data });
-      alert("Profile updated successfully!");
-    } catch {
-      alert("Failed to update profile");
-    } finally {
-      setLoading(false);
-    }
-  };
+const onSubmit = async (data) => {
+  setLoading(true);
+  try {
+    await callApi("PUT", "/tutor/profile", { data });
+    alert("Profile updated successfully!");
 
-  return (
-    <div className="min-vh-100 py-5 bg-light d-flex justify-content-center">
-      <form
-        className="card shadow-sm p-4 w-100"
-        style={{ maxWidth: "900px" }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h2 className="mb-4 d-flex align-items-center gap-2">
-          <FaUserEdit className="text-success" />
-          Edit Tutor Profile
-        </h2>
+    // Notify BrowseTutors to refresh subjects
+    window.dispatchEvent(new Event("subjectsUpdated"));
+  } catch {
+    alert("Failed to update profile");
+  } finally {
+    setLoading(false);
+  }
+};
 
-    
-        <div className="row mb-3 g-3">
-          <div className="col-md-4">
-            <label className="form-label">Full Name</label>
-            <input
-              type="text"
-              className={`form-control ${errors.fullName ? "is-invalid" : ""}`}
-              {...register("fullName")}
-            />
-            {errors.fullName && (
-              <div className="invalid-feedback">{errors.fullName.message}</div>
-            )}
-          </div>
+ 
+   return (
+  <div className="min-vh-100 d-flex justify-content-center align-items-start py-5">
+    <form
+      className="card shadow profile-card w-100"
+      style={{ maxWidth: "950px" }}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {/* Header */}
+      <div className="card-header-brand d-flex align-items-center gap-3">
+        <FaUserEdit size={22} />
+        <div>
+          <h4 className="mb-0">Edit Tutor Profile</h4>
+          <small>Update your professional details</small>
+        </div>
+      </div>
 
-          <div className="col-md-4">
-            <label className="form-label">Email</label>
-            <input
-              type="email"
-              className={`form-control ${errors.email ? "is-invalid" : ""}`}
-              {...register("email")}
-              disabled
-            />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email.message}</div>
-            )}
-          </div>
+      <div className="p-4">
 
-          <div className="col-md-4">
-            <label className="form-label d-flex align-items-center gap-2">
-              <FaMapMarkerAlt />
-              Location
-            </label>
-            <input
-              type="text"
-              className={`form-control ${errors.location ? "is-invalid" : ""}`}
-              placeholder="City, Country"
-              {...register("location")}
-            />
-            {errors.location && (
-              <div className="invalid-feedback">{errors.location.message}</div>
-            )}
+        {/* BASIC INFO */}
+        <div className="mb-4">
+          <div className="section-title">Basic Information</div>
+          <div className="row g-3">
+            <div className="col-md-4">
+              <label className="form-label">Full Name</label>
+              <input
+                type="text"
+                className={`form-control input-modern ${errors.fullName ? "is-invalid" : ""}`}
+                {...register("fullName")}
+              />
+              <div className="invalid-feedback">{errors.fullName?.message}</div>
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                disabled
+                className="form-control input-modern bg-light"
+                {...register("email")}
+              />
+            </div>
+
+           
           </div>
         </div>
 
-   
-        <div className="mb-3">
-          <label className="form-label">Bio</label>
+        {/* BIO */}
+        <div className="mb-4">
+          <div className="section-title">About You</div>
           <textarea
-            className={`form-control ${errors.bio ? "is-invalid" : ""}`}
+            className={`form-control input-modern ${errors.bio ? "is-invalid" : ""}`}
             rows="4"
             {...register("bio")}
           />
-          {errors.bio && (
-            <div className="invalid-feedback">{errors.bio.message}</div>
-          )}
         </div>
 
-        {/* Subjects */}
-        <div className="mb-3">
-          <label className="form-label">Subjects</label>
+        {/* SUBJECTS */}
+        <div className="mb-4">
+          <div className="section-title">Subjects You Teach</div>
 
-          <div className="input-group mb-2">
+          <div className="input-group mb-3">
             <input
               type="text"
-              className="form-control"
-              placeholder="Add a subject"
+              className="form-control input-modern"
+              placeholder="Add subject"
               value={subjectInput}
               onChange={(e) => setSubjectInput(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" && (e.preventDefault(), addSubject())
-              }
+              onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSubject())}
             />
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={addSubject}
-            >
+            <button type="button" className="btn brand-btn" onClick={addSubject}>
               <FaPlus />
             </button>
           </div>
 
           {subjects.map((sub, i) => (
-            <span key={i} className="badge bg-success me-2 mb-2">
+            <span key={i} className="badge badge-subject me-2 mb-2">
               {sub}
               <button
                 type="button"
-                className="btn-close btn-close-white btn-sm ms-2"
+                className="btn-close btn-close-white ms-2"
                 onClick={() => removeSubject(i)}
               />
             </span>
           ))}
-
-          {errors.subjects && (
-            <div className="text-danger small">{errors.subjects.message}</div>
-          )}
         </div>
 
-     
-        <div className="row mb-3 g-3">
-          <div className="col-md-6">
-            <label className="form-label">Hourly Rate (NPR)</label>
-            <input
-              type="number"
-              className={`form-control ${errors.hourlyRate ? "is-invalid" : ""}`}
-              {...register("hourlyRate", { valueAsNumber: true })}
-            />
-          </div>
-
-          <div className="col-md-6">
-            <label className="form-label">Experience (Years)</label>
-            <input
-              type="number"
-              className={`form-control ${errors.experience ? "is-invalid" : ""}`}
-              {...register("experience", { valueAsNumber: true })}
-            />
+        {/* PROFESSIONAL DETAILS */}
+        <div className="mb-4">
+         
+          <div className="row g-3">
+            <div className="col-md-6">
+              <label className="form-label">Hourly Rate (NPR)</label>
+              <input
+                type="number"
+                className="form-control input-modern"
+                {...register("hourlyRate", { valueAsNumber: true })}
+              />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label">Experience (Years)</label>
+              <input
+                type="number"
+                className="form-control input-modern"
+                {...register("experience", { valueAsNumber: true })}
+              />
+            </div>
           </div>
         </div>
 
-     
-        <div className="mb-3">
-          <label className="form-label">Availability</label>
-          <div className="row g-2">
-            {["morning", "afternoon", "evening", "weekend"].map((slot) => (
-              <div className="col-6 col-md-3" key={slot}>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    {...register(`availability.${slot}`)}
-                  />
-                  <label className="form-check-label">
-                    {slot.charAt(0).toUpperCase() + slot.slice(1)}
-                  </label>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    {/* AVAILABILITY */}
+<div className="mb-4">
+  <div className="section-title">Availability</div>
 
-        
-        <div className="d-flex gap-3 mt-4">
-          <button
-            type="submit"
-            className="btn btn-success"
-            disabled={loading}
-          >
-            <FaSave /> {loading ? "Saving..." : "Save Changes"}
-          </button>
+  <div className="row g-3">
+    {["morning", "afternoon", "evening", "weekend"].map((slot) => (
+      <div className="col-6 col-md-3" key={slot}>
+        <label className="availability-card w-100">
+          <input
+            type="checkbox"
+            {...register(`availability.${slot}`)}
+          />
+          <span className="checkmark"></span>
+          <span className="slot-text text-capitalize">{slot}</span>
+        </label>
+      </div>
+    ))}
+  </div>
+</div>
 
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={() => reset()}
-          >
+
+        {/* BUTTONS */}
+        <div className="d-flex justify-content-end gap-3 mt-4">
+          <button type="button" className="btn btn-light" onClick={() => reset()}>
             <FaTimes /> Cancel
           </button>
+
+          <button type="submit" className="btn brand-btn text-white" disabled={loading}>
+            <FaSave /> {loading ? "Saving..." : "Save Changes"}
+          </button>
         </div>
-      </form>
-    </div>
-  );
+      </div>
+    </form>
+  </div>
+);
+
 };
 
-export default EditTutorProfile;
+export default EditTutorProfile; 

@@ -19,6 +19,7 @@ const BrowseTutors = React.lazy(() =>import("./Pages/private/BrowserTutor"));
 const TutorDetails = React.lazy(() =>import( "./Pages/private/TutorDetails"));
 
 const AdminDashboard = React.lazy(() =>import( "./Pages/admin/AdminDashboard"));
+const ResetPasswordPage = React.lazy(() => import("./Pages/public/ResetPassword"));
 
 
  const AppRoutes = () => {
@@ -38,7 +39,11 @@ const AdminDashboard = React.lazy(() =>import( "./Pages/admin/AdminDashboard"));
        
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
+         
+         <Route path="/forgetpassword" element={<ForgetPasswordPage />} />
+         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+  
+
         
       
         <Route path="/" element={<Home />} />

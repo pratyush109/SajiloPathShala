@@ -9,7 +9,7 @@ import { setToken, setRole } from "../../Utils/storage";
 import { toast } from "react-toastify";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../style/login.css";
-import loginArt from "../../assets/study.png";
+import loginArt from "../../assets/tutor.png";
 
 import { FaEnvelope, FaLock } from "react-icons/fa";
 

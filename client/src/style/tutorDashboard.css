@@ -1,0 +1,77 @@
+:root {
+  --brand: #8e2de2;
+  --brand-dark: #6a11cb;
+  --brand-light: #c77dff;
+  --bg-soft: #f6f3ff;
+}
+
+.dashboard-bg {
+  background: var(--bg-soft);
+}
+
+/* HEADER */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(106,17,203,0.2);
+}
+
+/* STAT CARD */
+.brand-card {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  transition: 0.2s ease;
+}
+
+.brand-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-card {
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.icon-brand { background: var(--brand); }
+.icon-dark { background: var(--brand-dark); }
+
+.calendar-box {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.05);
+}
+
+.schedule-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}

@@ -1,0 +1,36 @@
+:root {
+  --brand-purple: #7c3aed;
+  --brand-purple-dark: #5b21b6;
+  --soft-bg: #f9fafb;
+  --card-border: #eef2f7;
+}
+
+/* Search Bar */
+.search-wrapper {
+  max-width: 680px;
+}
+
+.search-box {
+  border-radius: 50px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.08);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.search-box:focus-within {
+  border-color: var(--brand-purple);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.18);
+}
+.search-icon {
+  pointer-events: none;   /* allows clicking through icon */
+}
+
+.search-input {
+  position: relative;
+  z-index: 2;
+}
+
+.search-input:focus {
+  box-shadow: none !important;
+}

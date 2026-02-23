@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useApi } from "../../hooks/useAPI";
-import { FaStar, FaClock } from "react-icons/fa";
+import { FaClock } from "react-icons/fa";
+import "../../style/TutorDetails.css";
 
 const TutorDetails = () => {
   const { id } = useParams();
@@ -51,22 +52,17 @@ const TutorDetails = () => {
 
     setLoading(true);
     try {
-    
-await callApi("POST", "/booking", {
-
-  data: {
-    data: {  
-      tutorId: tutor.id,
-      date,
-      time,
-      subject: tutor.subjects?.[0],
-    }
-  }
-});
+      await callApi("POST", "/booking", {
+        data: {
+          tutorId: tutor.id,
+          date,
+          time,
+          subject: tutor.subjects?.[0],
+        },
+      });
 
       alert("Session booked successfully!");
-
-     fetchSessions();
+      fetchSessions();
     } catch (err) {
       alert(err.message || "Failed to book session");
     } finally {
@@ -82,7 +78,6 @@ await callApi("POST", "/booking", {
           <div className="card p-4 shadow-sm">
             <h5 className="mb-4">Book a Class</h5>
 
-          
             <div className="mb-3">
               <label className="form-label">Select Subject</label>
               <select className="form-select">
@@ -93,7 +88,6 @@ await callApi("POST", "/booking", {
               </select>
             </div>
 
-          
             <div className="row mb-4">
               <div className="col-md-6">
                 <label className="form-label">Select Date</label>
@@ -126,11 +120,11 @@ await callApi("POST", "/booking", {
           </div>
         </div>
 
+        {/* RIGHT – TUTOR SUMMARY */}
         <div className="col-lg-4">
           <div className="card p-4 shadow-sm">
             <h6 className="mb-3">Booking Summary</h6>
 
-         
             <div className="d-flex align-items-center gap-3 mb-3">
               <div
                 className="rounded-circle bg-success text-white d-flex align-items-center justify-content-center"
@@ -140,9 +134,7 @@ await callApi("POST", "/booking", {
               </div>
               <div>
                 <div className="fw-semibold">{tutor.fullName}</div>
-                <div className="text-muted small">
-                  {tutor.subjects?.join(", ")}
-                </div>
+                <div className="text-muted small">{tutor.subjects?.join(", ")}</div>
               </div>
             </div>
 
@@ -153,19 +145,10 @@ await callApi("POST", "/booking", {
               <span>{tutor.experience} years</span>
             </div>
 
-            <div className="small d-flex justify-content-between mb-2">
-              <span>Rating</span>
-              <span className="text-warning">
-                <FaStar /> {tutor.rating }
-              </span>
-            </div>
-
-      
             <hr />
 
             <div className="mb-3">
               <h6 className="small fw-semibold mb-2">Available Timing</h6>
-
               {tutor.availability
                 ? Object.entries(tutor.availability)
                     .filter(([_, value]) => value)
@@ -174,8 +157,7 @@ await callApi("POST", "/booking", {
                         key={i}
                         className="d-flex align-items-center gap-2 small text-muted mb-1"
                       >
-                        <FaClock />
-                        {day}
+                        <FaClock /> {day}
                       </div>
                     ))
                 : <span className="text-muted small">No availability set</span>}
@@ -185,9 +167,7 @@ await callApi("POST", "/booking", {
 
             <div className="small fw-semibold d-flex justify-content-between">
               <span>Class Fee</span>
-              <span className="text-success">
-                NPR{tutor.hourlyRate}/hr
-              </span>
+              <span className="text-success">NPR{tutor.hourlyRate}/hr</span>
             </div>
           </div>
         </div>

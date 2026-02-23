@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { connection } from "./Database/db.js";
+import 'dotenv/config'; 
 
 import authRouter from "./Routes/authRoutes.js";
 import bookingRouter from "./Routes/bookingRoutes.js";
@@ -16,6 +17,8 @@ app.use(cors());
 
 
 connection();
+
+
 
 
 app.use("/api/auth", authRouter);

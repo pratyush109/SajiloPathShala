@@ -1,7 +1,9 @@
 
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import Users from "../Model/userModel.js";
 import { generateToken } from "../Security/jwt-utils.js";
+import { sendEmail } from "../Utils/email.js";
 
 
 export const register = async (req, res) => {
@@ -72,6 +74,66 @@ res.status(200).json({
   }
 };
 
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: "Email required" });
+
+    const user = await Users.findOne({ where: { email } });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // generate token
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiry = Date.now() + 3600 * 1000; // 1 hour
+
+    user.resetToken = token;
+    user.resetTokenExpiry = expiry;
+    await user.save();
+
+    const resetLink = `http://localhost:5173/reset-password/${token}`;
+
+    // send real email
+    const message = `
+      <h2>Password Reset Request</h2>
+      <p>Hello ${user.fullName},</p>
+      <p>Click the link below to reset your password. The link is valid for 1 hour.</p>
+      <a href="${resetLink}">Reset Password</a>
+    `;
+
+    await sendEmail({ to: email, subject: "Reset Your Password", html: message });
+
+    res.status(200).json({ message: "Reset link sent to your email" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Reset password using token
+export const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!token || !password) return res.status(400).json({ message: "Invalid request" });
+
+    const user = await Users.findOne({ where: { resetToken: token } });
+    if (!user) return res.status(400).json({ message: "Invalid token" });
+
+    if (user.resetTokenExpiry < Date.now())
+      return res.status(400).json({ message: "Token expired" });
+
+    user.password = await bcrypt.hash(password, 10);
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
+
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const getAllUsers = async (req, res) => {
   try {
     const users = await Users.findAll({
@@ -121,16 +183,24 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+// Delete user safely along with their bookings
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
+
     const user = await Users.findByPk(id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
+    // Delete all bookings where this user is student or tutor
+    await Booking.destroy({ where: { studentId: id } });
+    await Booking.destroy({ where: { tutorId: id } });
+
+    // Delete the user
     await user.destroy();
-    res.status(200).json({ message: "User deleted successfully" });
+
+    res.status(200).json({ message: "User and related bookings deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Delete user error:", error); // Full error for debugging
+    res.status(500).json({ message: "Something went wrong while deleting the user" });
   }
 };

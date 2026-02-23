@@ -1,4 +1,3 @@
-
 import express from "express";
 import {
   register,
@@ -7,17 +6,22 @@ import {
   getUserById,
   updateUser,
   deleteUser,
+  forgotPassword,
+  resetPassword,
 } from "../Controller/authController.js";
 
 const router = express.Router();
 
-router.post("/register", register); 
-router.post("/login", login);       
+// existing
+router.post("/register", register);
+router.post("/login", login);
+router.get("/users", getAllUsers);
+router.get("/users/:id", getUserById);
+router.put("/users/:id", updateUser);
 
 
-router.get("/users", getAllUsers);         
-router.get("/users/:id", getUserById);     
-router.put("/users/:id", updateUser);      
-router.delete("/users/:id", deleteUser);    
+// forgot/reset
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password/:token", resetPassword);
 
 export default router;

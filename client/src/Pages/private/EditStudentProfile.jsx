@@ -5,6 +5,7 @@ import { EditStudentProfileSchema } from "../../schema/editStudentProfile.schema
 import { useApi } from "../../hooks/useAPI";
 import { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../style/EditStudentProfile.css";
 
 const EditStudentProfile = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const EditStudentProfile = () => {
 
   const onSubmit = async (data) => {
     try {
-      await callApi("PUT", "/student/profile", { data });
+      await callApi("PUT", "/student/profile", data);
       alert("Profile updated successfully!");
       navigate("/studentdashboard");
     } catch (err) {
@@ -49,18 +50,22 @@ const EditStudentProfile = () => {
   };
 
   return (
-    <div className="min-vh-100 d-flex justify-content-center align-items-start py-5 bg-light">
-      <div className="card shadow-sm p-4" style={{ maxWidth: "720px", width: "100%" }}>
-        <h2 className="mb-4">Edit Student Profile</h2>
+    <div className="min-vh-100 d-flex justify-content-center align-items-start py-5 app-bg">
+      <div className="card brand-card p-4" style={{ maxWidth: "720px", width: "100%" }}>
+        
+        <div className="mb-4 text-center">
+          <h2 className="brand-heading">Edit Student Profile</h2>
+          <p className="text-muted mb-0">Keep your academic profile up to date</p>
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+
           {/* Full Name */}
           <div className="mb-3">
-            <label className="form-label">Full Name</label>
+            <label className="form-label fw-semibold">Full Name</label>
             <input
               type="text"
-              className="form-control"
-              placeholder="Your full name"
+              className="form-control bg-light"
               {...register("fullName")}
               disabled
             />
@@ -68,11 +73,10 @@ const EditStudentProfile = () => {
 
           {/* Email */}
           <div className="mb-3">
-            <label className="form-label">Email</label>
+            <label className="form-label fw-semibold">Email</label>
             <input
               type="email"
-              className="form-control"
-              placeholder="Your email address"
+              className="form-control bg-light"
               {...register("email")}
               disabled
             />
@@ -80,7 +84,7 @@ const EditStudentProfile = () => {
 
           {/* Grade */}
           <div className="mb-3">
-            <label className="form-label">Grade</label>
+            <label className="form-label fw-semibold">Grade</label>
             <input
               type="text"
               className={`form-control ${errors.grade ? "is-invalid" : ""}`}
@@ -94,11 +98,11 @@ const EditStudentProfile = () => {
 
           {/* Bio */}
           <div className="mb-3">
-            <label className="form-label">Bio</label>
+            <label className="form-label fw-semibold">Bio</label>
             <textarea
               className={`form-control ${errors.bio ? "is-invalid" : ""}`}
-              placeholder="Tell us about yourself..."
               rows="5"
+              placeholder="Tell us about yourself..."
               {...register("bio")}
             />
             {errors.bio && (
@@ -107,12 +111,12 @@ const EditStudentProfile = () => {
           </div>
 
           <div className="d-flex gap-3 mt-4">
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-brand flex-fill">
               Save Changes
             </button>
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary flex-fill"
               onClick={() => navigate(-1)}
             >
               Cancel

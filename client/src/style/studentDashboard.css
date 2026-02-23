@@ -1,0 +1,125 @@
+:root {
+  --brand: #8e2de2;
+  --brand-dark: #6a11cb;
+  --brand-light: #c77dff;
+  --bg-soft: #f5f3ff;
+}
+
+
+.dashboard-bg {
+  background: var(--bg-soft);
+}
+
+.action-banner {
+  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+  color: white;
+  padding: 18px 24px;
+  border-radius: 14px;
+}
+
+.btn-brand {
+  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+  color: white;
+  border: none;
+}
+
+.btn-brand:hover {
+  opacity: 0.9;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.soft-card {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--brand-dark);
+}
+
+
+.scroll-list {
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+
+.booking-item {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: 0.25s ease;
+}
+
+.booking-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+
+
+.profile-card {
+  background: linear-gradient(145deg, #ffffff, #f6f0ff);
+  border: 1px solid #efe4ff;
+}
+
+.app-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--brand-dark), var(--brand));
+  color: #fff;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 20px rgba(106, 17, 203, 0.2);
+}
+
+
+.sidebar-user {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #e9d5ff;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.sidebar-link.active {
+  background: linear-gradient(90deg, #ffffff, #f3e8ff);
+  color: var(--brand-dark);
+  font-weight: 600;
+}
+
+
+
