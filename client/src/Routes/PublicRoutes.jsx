@@ -1,10 +1,22 @@
-
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { getToken, getRole } from "../Utils/storage.js";
 
 const PublicRoutes = () => {
-  const token = localStorage.getItem("access_token");
+  const token = getToken(); // Use utility
+  const userRole = getRole();
 
-  return token ? <Navigate to="/home" replace /> : <Outlet />;
+  if (token) {
+    // Redirect to the correct dashboard based on role
+    const dashboardRoutes = {
+      admin: "/admindashboard",
+      tutor: "/tutordashboard",
+      student: "/studentdashboard",
+    };
+    
+    return <Navigate to={dashboardRoutes[userRole] || "/"} replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default PublicRoutes;

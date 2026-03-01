@@ -11,43 +11,48 @@ const Filters = ({ subject, setSubject, clearFilters, refreshTrigger }) => {
     const fetchSubjects = async () => {
       try {
         const res = await callApi("GET", "/subjects");
+        // Ensure res.data exists and is an array
         setSubjects(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
-        console.log("Subjects fetch error:", err.message);
+        console.error("Subjects fetch error:", err.message);
         setSubjects([]);
       }
     };
     fetchSubjects();
-  }, [callApi, refreshTrigger]); // <-- re-fetch whenever refreshTrigger changes
+  }, [callApi, refreshTrigger]);
 
   return (
-    <div className="card filter-card p-4 mb-4">
-      <h5 className="fw-bold mb-4" style={{ color: "var(--brand-purple-dark)" }}>
+    <div className="card filter-card p-4">
+      <h5 className="filter-title mb-4">
         Filters
       </h5>
 
-      {/* Subject */}
+      {/* Subject Select */}
       <div className="mb-4">
         <label className="form-label d-flex align-items-center gap-2 filter-label">
-          <FaBook color="#7c3aed" /> Subject
+          <FaBook color="var(--brand-purple)" /> Subject
         </label>
         <select
-          className="form-select"
+          className="form-select custom-select"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
         >
           <option value="">All Subjects</option>
-          {subjects.map((sub) => (
-            <option key={sub._id} value={sub.name}>
-              {sub.name}
-            </option>
-          ))}
+          {subjects.length > 0 ? (
+            subjects.map((sub) => (
+              <option key={sub._id || sub.id} value={sub.name}>
+                {sub.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>No subjects available</option>
+          )}
         </select>
       </div>
 
-      {/* Clear */}
+      {/* Clear Button */}
       <button
-        className="btn btn-outline-danger btn-clear w-100 d-flex align-items-center justify-content-center gap-2"
+        className="btn btn-clear w-100 d-flex align-items-center justify-content-center gap-2"
         onClick={clearFilters}
         type="button"
       >

@@ -94,3 +94,53 @@ a {
   box-shadow: 0 0 0 0.15rem rgba(142, 45, 226, 0.15);
 }
 
+/* Responsive Login/Auth */
+@media (max-width: 768px) {
+  .login-wrapper,
+  .login-art,
+  .auth-image {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .login-box,
+  .auth-form {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .login-logo {
+    width: 60px;
+  }
+
+  .btn-brand,
+  .btn-success {
+    width: 100%;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-wrapper,
+  .login-art,
+  .auth-image {
+    padding: 1rem 0;
+  }
+
+  .login-box,
+  .auth-form {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .login-logo {
+    width: 50px;
+  }
+
+  .btn-brand,
+  .btn-success {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+}

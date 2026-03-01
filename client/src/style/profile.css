@@ -47,3 +47,56 @@
 .form-control {
   border-radius: 10px;
 }
+
+/* Responsive Profile Page */
+@media (max-width: 768px) {
+  .profile-card {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .upload-text {
+    font-size: 12px;
+  }
+
+  .btn-success {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .upload-text {
+    font-size: 11px;
+  }
+
+  .btn-success {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+
+  .form-control {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+}

@@ -47,3 +47,47 @@
   border-color: var(--brand-purple);
   box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
 }
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .brand-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .brand-heading {
+    font-size: 1.25rem;
+  }
+
+  .btn-brand {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .profile-ring {
+    padding: 3px;
+  }
+
+  .app-bg {
+    background: linear-gradient(135deg, #f9fafb, #e6e6ff);
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-card {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .brand-heading {
+    font-size: 1.1rem;
+  }
+
+  .btn-brand {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .profile-ring {
+    padding: 2px;
+  }
+}

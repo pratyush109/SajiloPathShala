@@ -1,46 +1,116 @@
 :root {
-  --primary: #6a11cb;
-  --primary-light: #8e2de2;
-  --dark: #111827;
-  --gray: #6b7280;
-  --bg-soft: #f8f9fc;
-}
-/* Filter Card */
-.filter-card {
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.08);
+  --brand-purple: #7c3aed;
+  --brand-purple-dark: #5b21b6;
+  --card-border: #eef2f7;
+  --bg-white: #ffffff;
+  --text-dark: #111827;
 }
 
-/* Section Labels */
+/* THE CARD */
+.filter-card {
+  background: var(--bg-white);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.08);
+  /* This keeps it from jumping when tutors load */
+  transition: none; 
+}
+
+.filter-title {
+  font-weight: 700;
+  color: var(--brand-purple-dark);
+  font-size: 1.15rem;
+}
+
+/* SECTION LABELS */
 .filter-label {
   font-weight: 600;
-  color: var(--brand-purple-dark);
+  color: #4b5563;
+  font-size: 0.9rem;
 }
 
-/* Select + Range focus */
-.form-select:focus,
-.form-range:focus {
+/* DROPDOWN STYLING */
+.custom-select {
+  border-radius: 12px;
+  border: 1.5px solid var(--card-border);
+  padding: 10px 15px;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+}
+
+.custom-select:focus {
   border-color: var(--brand-purple);
-  box-shadow: 0 0 0 0.15rem rgba(124, 58, 237, 0.15);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+  outline: none;
 }
 
-/* Range track color */
-.form-range::-webkit-slider-thumb {
-  background: var(--brand-purple);
-}
-.form-range::-moz-range-thumb {
-  background: var(--brand-purple);
-}
-
-/* Clear button */
+/* CLEAR BUTTON */
 .btn-clear {
+  border: 1.5px solid #fecaca;
+  background: #fff;
+  color: #dc2626;
   border-radius: 12px;
   font-weight: 600;
+  padding: 12px;
+  transition: all 0.2s ease;
 }
 
 .btn-clear:hover {
   background: #fef2f2;
-  border-color: #fecaca;
-  color: #dc2626;
+  border-color: #fca5a5;
+  color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* Prevent layout shift on small screens */
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .filter-card {
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .filter-title {
+    font-size: 1rem;
+  }
+
+  .filter-label {
+    font-size: 0.85rem;
+  }
+
+  .custom-select {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-clear {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-card {
+    border-radius: 12px;
+    padding: 0.8rem;
+  }
+
+  .filter-title {
+    font-size: 0.95rem;
+  }
+
+  .filter-label {
+    font-size: 0.8rem;
+  }
+
+  .custom-select {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .btn-clear {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
 }

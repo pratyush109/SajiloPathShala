@@ -75,3 +75,90 @@
 .schedule-item:last-child {
   border-bottom: none;
 }
+/* Responsive Dashboard */
+@media (max-width: 1024px) {
+  .dashboard-header {
+    padding: 18px 20px;
+    border-radius: 16px;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .calendar-box {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    text-align: center;
+  }
+
+  .stat-card {
+    width: 100%;
+  }
+
+  .stat-label {
+    font-size: 13px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .calendar-box {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    padding: 14px 16px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .calendar-box {
+    padding: 12px;
+  }
+
+  .schedule-item {
+    font-size: 0.85rem;
+    padding: 8px 0;
+  }
+}

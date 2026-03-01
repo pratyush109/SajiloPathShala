@@ -57,3 +57,40 @@
   color: var(--primary-light);
 }
 
+/* Responsive Session Card */
+@media (max-width: 768px) {
+  .session-card {
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .btn-brand,
+  .btn-outline-brand {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    width: 100%;
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .session-card {
+    border-radius: 12px;
+    padding: 0.8rem;
+  }
+
+  .btn-brand,
+  .btn-outline-brand {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .status-badge {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+  }
+}

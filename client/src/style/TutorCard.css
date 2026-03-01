@@ -69,3 +69,51 @@
   min-height: 300px; /* or any reasonable height */
   position: relative;
 }
+/* Responsive Tutor Cards */
+@media (max-width: 768px) {
+  .tutor-card {
+    padding: 14px;
+  }
+
+  .tutor-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .subject-badge {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+
+  .btn-profile {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tutor-card {
+    padding: 12px;
+  }
+
+  .tutor-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .subject-badge {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+
+  .btn-profile {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .d-flex.flex-column.gap-3 {
+    min-height: 250px;
+  }
+}

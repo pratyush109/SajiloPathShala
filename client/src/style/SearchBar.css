@@ -34,3 +34,34 @@
 .search-input:focus {
   box-shadow: none !important;
 }
+/* Responsive Search Bar */
+@media (max-width: 768px) {
+  .search-wrapper {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .search-box {
+    border-radius: 40px;
+  }
+
+  .search-input {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-wrapper {
+    max-width: 95%;
+  }
+
+  .search-box {
+    border-radius: 35px;
+  }
+
+  .search-input {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}

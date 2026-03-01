@@ -35,8 +35,8 @@ const Navbar = () => {
           style={{ cursor: "pointer" }}
           onClick={handleLogoClick}
         >
-          <img src={logo} alt="Logo" width="38" height="38" />
-          <span className="fw-bold brand-text">SajiloPathShala</span>
+          <img src={logo} alt="Logo" width="150" height="38" />
+       
         </div>
 
         <button

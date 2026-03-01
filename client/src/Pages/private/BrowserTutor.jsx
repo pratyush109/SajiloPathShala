@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import TutorCard from "../../components/TutorCard";
 import Filters from "../../components/Filter";
 import SearchBar from "../../components/Searchbar";
@@ -7,11 +7,44 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const BrowseTutors = () => {
   const { callApi } = useApi();
-  const [tutors, setTutors] = useState([]);
+  const [allTutors, setAllTutors] = useState([]); // Store everything here once
   const [search, setSearch] = useState("");
   const [subject, setSubject] = useState("");
   const [rating, setRating] = useState(0);
-  const [subjectRefresh, setSubjectRefresh] = useState(0); // <-- refresh trigger
+  const [subjectRefresh, setSubjectRefresh] = useState(0);
+
+  // 1. Fetch ALL tutors ONLY ONCE when the component mounts
+  useEffect(() => {
+    const fetchAllTutors = async () => {
+      try {
+        const res = await callApi("GET", "/tutor");
+        setAllTutors(res.data || []);
+      } catch (err) {
+        console.log("Fetch error:", err.message);
+      }
+    };
+    fetchAllTutors();
+  }, [callApi]);
+
+  // 2. LOCAL FILTERING: This happens instantly. No API calls, no "earthquake".
+  const filteredTutors = useMemo(() => {
+    return allTutors.filter((tutor) => {
+      const searchTerm = search.toLowerCase();
+      
+      // Check if name or bio matches search
+      const matchesSearch = 
+        tutor.User.fullName.toLowerCase().includes(searchTerm) ||
+        (tutor.bio && tutor.bio.toLowerCase().includes(searchTerm));
+
+      // Check if subject matches
+      // Assumes tutor.subjects is an array of strings
+      const matchesSubject = 
+        subject === "" || 
+        tutor.subjects?.some(s => s === subject);
+
+      return matchesSearch && matchesSubject;
+    });
+  }, [search, subject, allTutors]);
 
   const clearFilters = () => {
     setSearch("");
@@ -19,27 +52,10 @@ const BrowseTutors = () => {
     setRating(0);
   };
 
-  // Fetch tutors whenever filters change
-  useEffect(() => {
-    const fetchTutors = async () => {
-      try {
-        const res = await callApi("GET", "/tutor", {
-          params: { search, subject, rating },
-        });
-        setTutors(res.data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-    fetchTutors();
-  }, [search, subject, rating, callApi]);
-
-  // Listen for tutor profile updates
   useEffect(() => {
     const handleSubjectsUpdated = () => {
-      setSubjectRefresh((prev) => prev + 1); // trigger Filters to refresh subjects
+      setSubjectRefresh((prev) => prev + 1);
     };
-
     window.addEventListener("subjectsUpdated", handleSubjectsUpdated);
     return () => window.removeEventListener("subjectsUpdated", handleSubjectsUpdated);
   }, []);
@@ -49,27 +65,30 @@ const BrowseTutors = () => {
       <SearchBar search={search} setSearch={setSearch} />
 
       <div className="row mt-4">
-        {/* Filters */}
         <div className="col-lg-3 mb-4">
           <Filters
             subject={subject}
             setSubject={setSubject}
             clearFilters={clearFilters}
-            refreshTrigger={subjectRefresh} // <-- pass refreshTrigger
+            refreshTrigger={subjectRefresh}
           />
         </div>
 
-        {/* Tutor Cards */}
         <div className="col-lg-9">
-          {tutors.length === 0 ? (
-            <p className="text-center">No tutors found matching your filters</p>
-          ) : (
-            <div className="d-flex flex-column gap-3">
-              {tutors.map((tutor) => (
-                <TutorCard key={tutor.User.id} tutor={tutor} />
-              ))}
-            </div>
-          )}
+          {/* results-stabilizer keeps the layout from moving if results are empty */}
+          <div className="tutor-results-stabilizer" style={{ minHeight: "600px" }}>
+            {filteredTutors.length === 0 ? (
+              <div className="text-center py-5">
+                <p className="text-muted">No tutors found matching your filters</p>
+              </div>
+            ) : (
+              <div className="d-flex flex-column gap-3">
+                {filteredTutors.map((tutor) => (
+                  <TutorCard key={tutor.User.id} tutor={tutor} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

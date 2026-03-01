@@ -21,30 +21,37 @@ const EditStudentProfile = () => {
     defaultValues: {
       fullName: "",
       email: "",
-      grade: "",
-      bio: "",
     },
   });
 
+  // Prefill form with localStorage data
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await callApi("GET", "/student/profile");
-        reset(res.data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-    fetchProfile();
-  }, [callApi, reset]);
+    reset({
+      fullName: localStorage.getItem("fullName") || "",
+      email: localStorage.getItem("email") || "",
+    });
+  }, [reset]);
 
   const onSubmit = async (data) => {
     try {
-      await callApi("PUT", "/student/profile", data);
+      const userId = localStorage.getItem("id");
+
+      if (!userId) {
+        alert("User ID missing! Please login again.");
+        navigate("/login");
+        return;
+      }
+
+      // Use the correct backend URL: /api/auth/users/:id
+      await callApi("PUT", `/auth/users/${userId}`, data);
+
+      // Update localStorage so dashboard shows new name
+      localStorage.setItem("fullName", data.fullName);
+
       alert("Profile updated successfully!");
       navigate("/studentdashboard");
     } catch (err) {
-      console.log(err.message);
+      console.log(err.response || err.message);
       alert("Failed to update profile");
     }
   };
@@ -59,19 +66,20 @@ const EditStudentProfile = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-
           {/* Full Name */}
           <div className="mb-3">
             <label className="form-label fw-semibold">Full Name</label>
             <input
               type="text"
-              className="form-control bg-light"
+              className={`form-control ${errors.fullName ? "is-invalid" : ""}`}
               {...register("fullName")}
-              disabled
             />
+            {errors.fullName && (
+              <div className="invalid-feedback">{errors.fullName.message}</div>
+            )}
           </div>
 
-          {/* Email */}
+          {/* Email (read-only) */}
           <div className="mb-3">
             <label className="form-label fw-semibold">Email</label>
             <input
@@ -80,34 +88,6 @@ const EditStudentProfile = () => {
               {...register("email")}
               disabled
             />
-          </div>
-
-          {/* Grade */}
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Grade</label>
-            <input
-              type="text"
-              className={`form-control ${errors.grade ? "is-invalid" : ""}`}
-              placeholder="e.g., Grade 10"
-              {...register("grade")}
-            />
-            {errors.grade && (
-              <div className="invalid-feedback">{errors.grade.message}</div>
-            )}
-          </div>
-
-          {/* Bio */}
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Bio</label>
-            <textarea
-              className={`form-control ${errors.bio ? "is-invalid" : ""}`}
-              rows="5"
-              placeholder="Tell us about yourself..."
-              {...register("bio")}
-            />
-            {errors.bio && (
-              <div className="invalid-feedback">{errors.bio.message}</div>
-            )}
           </div>
 
           <div className="d-flex gap-3 mt-4">

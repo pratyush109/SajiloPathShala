@@ -80,3 +80,70 @@ hr {
   transform: translateY(-2px);
   transition: all 0.25s ease;
 }
+
+/* Responsive Cards and Booking Elements */
+@media (max-width: 1024px) {
+  .container.py-4 {
+    padding: 2rem 1.5rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .btn.text-white {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .rounded-circle.bg-success {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container.py-4 {
+    padding: 1.5rem 1rem;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .btn.text-white {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .rounded-circle.bg-success {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container.py-4 {
+    padding: 1rem 0.75rem;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .btn.text-white {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+
+  .rounded-circle.bg-success {
+    width: 36px;
+    height: 36px;
+  }
+
+  .text-warning svg,
+  .small.text-muted svg {
+    width: 14px;
+    height: 14px;
+  }
+}
