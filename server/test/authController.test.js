@@ -1,96 +1,71 @@
-const authController = require('../Controller/authController');
-const User = require('../Model/userModel');
+import { jest } from '@jest/globals';
+import bcrypt from 'bcrypt';
+import * as authController from '../Controller/authController.js';
+import User from '../Model/userModel.js';
+import { generateToken } from '../Security/jwt-utils.js';
 
-
-jest.mock('../Model/userModel', () => ({
-  create: jest.fn(),
-  findAll: jest.fn(),
+jest.mock('../Model/userModel.js', () => ({
+  findOne: jest.fn(),
   findByPk: jest.fn(),
-  update: jest.fn(),
-  destroy: jest.fn(),
+  create: jest.fn(),
 }));
- 
+
+jest.mock('bcrypt', () => ({
+  hash: jest.fn(),
+  compare: jest.fn(),
+}));
+
+jest.mock('../Security/jwt-utils.js', () => ({
+  generateToken: jest.fn(() => 'fake-token'),
+}));
+
+const mockResponse = () => {
+  const res = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  return res;
+};
+
 describe('Auth Controller', () => {
-    const mockResponse = () => {
-        const res = {};
-        res.status = jest.fn().mockReturnValue(res);
-        res.json = jest.fn().mockReturnValue(res);
-        return res;
-    }});
+  afterEach(() => jest.clearAllMocks());
 
-    it('should register a new user', async () => {
-        const req = {
-            body: {
-                fullName: 'Test User',
-                email: 'test@example.com',
-                password: 'password123',
-                role: 'student',
-            },
-        };
-        const res = mockResponse();
-        User.create.mockResolvedValue(req.body);
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith({ message: 'User registered successfully', user: req.body });
-    });
+  it('registers a new user', async () => {
+    const req = { body: { fullName: 'Test', email: 'test@example.com', password: 'password', role: 'student' } };
+    const res = mockResponse();
+    User.findOne.mockResolvedValue(null);
+    bcrypt.hash.mockResolvedValue('hashedPassword');
+    User.create.mockResolvedValue({ id: 1, ...req.body });
 
-    it('should login a user', async () => {
-        const req = {
-            body: {
-                email: 'test@example.com',
-                password: 'password123',
-            },
-        };
-        const res = mockResponse();
-        User.findAll.mockResolvedValue([{
-            id: 1,
-            fullName: 'Test User',
-            email: 'test@example.com',
-            password: 'password123',
-            role: 'student',
-        }]);
-        expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Login successful', user: expect.objectContaining({ email: 'test@example.com' }) });
-    });
+    await authController.register(req, res);
 
-    it('should handle login with invalid credentials', async () => {
-        const req = {
-            body: {
-                email: 'test@example.com',
-                password: 'wrongpassword',
-            },
-        };
-        const res = mockResponse();
-        User.findAll.mockResolvedValue([]);
-        expect(res.status).toHaveBeenCalledWith(401);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Invalid email or password' });
-    });
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: 'User registered successfully' }));
+  });
 
-    it('should handle errors during registration', async () => {
-        const req = {
-            body: {
-                fullName: 'Test User',
-                email: 'test@example.com',
-                password: 'password123',
-                role: 'student',
-            },
-        };
-        const res = mockResponse();
-        const errorMessage = 'Database error';
-        User.create.mockRejectedValue(new Error(errorMessage));
-        expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Error registering user', error: errorMessage });
-    });
+  it('logs in a user', async () => {
+    const req = { body: { email: 'test@example.com', password: 'password' } };
+    const res = mockResponse();
+    User.findOne.mockResolvedValue({ id: 1, email: 'test@example.com', password: 'hashedPassword', fullName: 'Test', role: 'student' });
+    bcrypt.compare.mockResolvedValue(true);
 
-    it('should handle errors during login', async () => {
-        const req = {
-            body: {
-                email: 'test@example.com',
-                password: 'password123',
-            },
-        };
-        const res = mockResponse();
-        const errorMessage = 'Database error';
-        User.findAll.mockRejectedValue(new Error(errorMessage));
-        expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ message: 'Error logging in', error: errorMessage });
-    });
+    await authController.login(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+      message: 'Login successful',
+      data: expect.objectContaining({ email: 'test@example.com', access_token: 'fake-token' })
+    }));
+  });
+
+  it('handles login with wrong password', async () => {
+    const req = { body: { email: 'test@example.com', password: 'wrong' } };
+    const res = mockResponse();
+    User.findOne.mockResolvedValue({ password: 'hashedPassword' });
+    bcrypt.compare.mockResolvedValue(false);
+
+    await authController.login(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Incorrect password' });
+  });
+});

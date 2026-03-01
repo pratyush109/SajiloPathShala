@@ -1,6 +1,13 @@
 import { z } from "zod";
 
 export const editTutorProfileSchema = z.object({
+  // ADD THIS LINE
+  fullName: z.string().min(2, "Full name is required").max(50),
+  
+  // These might be in your defaultValues, so define them to prevent stripping
+  email: z.string().optional(),
+  location: z.string().optional(),
+
   bio: z
     .string()
     .min(10, "Bio must be at least 10 characters")

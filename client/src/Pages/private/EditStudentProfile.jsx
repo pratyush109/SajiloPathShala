@@ -24,7 +24,7 @@ const EditStudentProfile = () => {
     },
   });
 
-  // Prefill form with localStorage data
+
   useEffect(() => {
     reset({
       fullName: localStorage.getItem("fullName") || "",
@@ -42,10 +42,9 @@ const EditStudentProfile = () => {
         return;
       }
 
-      // Use the correct backend URL: /api/auth/users/:id
-      await callApi("PUT", `/auth/users/${userId}`, data);
+      
+      await callApi("PUT", `/auth/users/${userId}`, { data });
 
-      // Update localStorage so dashboard shows new name
       localStorage.setItem("fullName", data.fullName);
 
       alert("Profile updated successfully!");
@@ -79,7 +78,7 @@ const EditStudentProfile = () => {
             )}
           </div>
 
-          {/* Email (read-only) */}
+      
           <div className="mb-3">
             <label className="form-label fw-semibold">Email</label>
             <input

@@ -7,13 +7,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const BrowseTutors = () => {
   const { callApi } = useApi();
-  const [allTutors, setAllTutors] = useState([]); // Store everything here once
+  const [allTutors, setAllTutors] = useState([]); 
   const [search, setSearch] = useState("");
   const [subject, setSubject] = useState("");
   const [rating, setRating] = useState(0);
   const [subjectRefresh, setSubjectRefresh] = useState(0);
 
-  // 1. Fetch ALL tutors ONLY ONCE when the component mounts
+ 
   useEffect(() => {
     const fetchAllTutors = async () => {
       try {
@@ -26,18 +26,16 @@ const BrowseTutors = () => {
     fetchAllTutors();
   }, [callApi]);
 
-  // 2. LOCAL FILTERING: This happens instantly. No API calls, no "earthquake".
+
   const filteredTutors = useMemo(() => {
     return allTutors.filter((tutor) => {
       const searchTerm = search.toLowerCase();
       
-      // Check if name or bio matches search
+     
       const matchesSearch = 
         tutor.User.fullName.toLowerCase().includes(searchTerm) ||
         (tutor.bio && tutor.bio.toLowerCase().includes(searchTerm));
 
-      // Check if subject matches
-      // Assumes tutor.subjects is an array of strings
       const matchesSubject = 
         subject === "" || 
         tutor.subjects?.some(s => s === subject);
@@ -75,7 +73,7 @@ const BrowseTutors = () => {
         </div>
 
         <div className="col-lg-9">
-          {/* results-stabilizer keeps the layout from moving if results are empty */}
+         
           <div className="tutor-results-stabilizer" style={{ minHeight: "600px" }}>
             {filteredTutors.length === 0 ? (
               <div className="text-center py-5">

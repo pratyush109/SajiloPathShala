@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useApi } from "../../hooks/useAPI";
-import toast from "react-hot-toast"; // Ensure react-hot-toast is installed
+import toast from "react-hot-toast";
 import {
   FaTachometerAlt,
   FaUsers,
@@ -57,11 +57,10 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
-  // --- DELETE USER WITH TOAST ---
   const handleDeleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) return;
 
-    // toast.promise handles the Loading, Success, and Error states automatically
+    
     toast.promise(
       callApi("DELETE", `/admin/users/${id}`),
       {
@@ -75,7 +74,7 @@ const AdminDashboard = () => {
     );
   };
 
-  // --- CHART LOGIC ---
+
   const roleData = [
     { name: "Students", value: users.filter((u) => u.role === "student").length },
     { name: "Tutors", value: users.filter((u) => u.role?.toLowerCase().includes("tutor")).length },

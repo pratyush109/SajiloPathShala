@@ -2,13 +2,12 @@ import Users from "../Model/userModel.js";
 import Booking from "../Model/bookingModel.js";
 import TutorProfile from "../Model/tutorProfileModel.js";
 
-// Admin dashboard stats
 export const getAdminStats = async (req, res) => {
   try {
     const totalUsers = await Users.count();
     const totalTutors = await Users.count({ where: { role: "tutor" } });
     const totalBookings = await Booking.count();
-    // For simplicity, earnings = completed bookings count
+   
     const totalRevenue = await Booking.count({ where: { status: "COMPLETED" } });
 
     res.status(200).json({ totalUsers, totalTutors, totalBookings, totalRevenue });
@@ -17,7 +16,6 @@ export const getAdminStats = async (req, res) => {
   }
 };
 
-// View all bookings
 export const getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.findAll({

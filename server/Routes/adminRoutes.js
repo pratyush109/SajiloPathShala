@@ -5,12 +5,9 @@ import { authenticateToken } from "../middleware/token-middleware.js";
 import TutorProfile from "../Model/tutorProfileModel.js";
 const router = express.Router();
 
-// Protect all routes
 router.use(authenticateToken);
 
-// ====================== USERS ====================== //
 
-// Get all users - admin only
 router.get("/users", async (req, res) => {
   if (req.user.role !== "admin")
     return res.status(403).json({ message: "Access denied. Admins only." });
@@ -25,7 +22,6 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// Update user - PATCH admin only
 router.patch("/users/:id", async (req, res) => {
   if (req.user.role !== "admin")
     return res.status(403).json({ message: "Access denied. Admins only." });
@@ -38,7 +34,7 @@ router.patch("/users/:id", async (req, res) => {
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (role) user.role = role;
-    if (password) user.password = password; // optionally hash
+    if (password) user.password = password; 
 
     await user.save();
     res.status(200).json({ message: "User updated successfully", data: user });
@@ -47,7 +43,6 @@ router.patch("/users/:id", async (req, res) => {
   }
 });
 
-// Delete user - admin only
 router.delete("/users/:id", async (req, res) => {
   if (req.user.role !== "admin") {
     return res.status(403).json({ message: "Admins only" });
@@ -57,7 +52,7 @@ router.delete("/users/:id", async (req, res) => {
     const user = await Users.findByPk(req.params.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Delete related bookings first to prevent foreign key errors
+    
     await Booking.destroy({ where: { studentId: user.id } });
     await Booking.destroy({ where: { tutorId: user.id } });
 
@@ -69,9 +64,7 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-// ====================== BOOKINGS ====================== //
 
-// Get all bookings - admin only
 router.get("/bookings", async (req, res) => {
   if (req.user.role !== "admin")
     return res.status(403).json({ message: "Access denied. Admins only." });

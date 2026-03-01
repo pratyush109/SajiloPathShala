@@ -4,6 +4,7 @@ import crypto from "crypto";
 import Users from "../Model/userModel.js";
 import { generateToken } from "../Security/jwt-utils.js";
 import { sendEmail } from "../Utils/email.js";
+import { sequelize } from "../Database/db.js"; 
 
 
 export const register = async (req, res) => {
@@ -82,9 +83,8 @@ export const forgotPassword = async (req, res) => {
     const user = await Users.findOne({ where: { email } });
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // generate token
     const token = crypto.randomBytes(32).toString("hex");
-    const expiry = Date.now() + 3600 * 1000; // 1 hour
+    const expiry = Date.now() + 3600 * 1000; 
 
     user.resetToken = token;
     user.resetTokenExpiry = expiry;
@@ -92,7 +92,6 @@ export const forgotPassword = async (req, res) => {
 
     const resetLink = `http://localhost:5173/reset-password/${token}`;
 
-    // send real email
     const message = `
       <h2>Password Reset Request</h2>
       <p>Hello ${user.fullName},</p>
@@ -108,7 +107,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-// Reset password using token
+
 export const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
@@ -204,3 +203,24 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: "Something went wrong while deleting the user" });
   }
 };
+const createAdmin = async () => {
+  await sequelize.sync(); 
+  const existingAdmin = await Users.findOne({ where: { email: "admin@example.com" } });
+  if (existingAdmin) {
+    console.log("Admin already exists:", existingAdmin.id);
+    return;
+  }
+
+  const hashedPassword = await bcrypt.hash("admin123", 10); 
+
+  const admin = await Users.create({
+    fullName: "Admin",
+    email: "admin@example.com",
+    password: hashedPassword,
+    role: "admin",
+  });
+
+  console.log("Admin created:", admin.id);
+};
+
+createAdmin();
