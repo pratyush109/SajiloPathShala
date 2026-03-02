@@ -150,6 +150,7 @@ const TutorDetails = () => {
               <span className="fw-semibold">{tutor.experience} years</span>
             </div>
 
+      {/* */}
             <hr className="text-muted opacity-25" />
 
             <div className="mb-3">

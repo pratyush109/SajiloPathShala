@@ -54,6 +54,7 @@ const ForgetPassword = () => {
             </div>
           </div>
 
+      {/* */}
           {error && <p className="text-danger text-center">{error}</p>}
           {message && <p className="text-success text-center">{message}</p>}
 

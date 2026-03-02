@@ -27,6 +27,7 @@ const StepCard = ({ icon, title, text }) => (
   </div>
 );
 
+      {/* */}
 const Home = () => {
   return (
     <>

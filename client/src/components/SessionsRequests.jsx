@@ -64,3 +64,5 @@ const SessionRequests = ({ sessions, onApprove, onReject }) => {
 };
 
 export default SessionRequests;
+
+      {/* */}

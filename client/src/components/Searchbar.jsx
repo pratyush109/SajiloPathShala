@@ -26,3 +26,5 @@ const SearchBar = ({ search, setSearch }) => {
 };
 
 export default SearchBar;
+
+      {/* */}

@@ -27,3 +27,5 @@ const PrivateRoute = ({ allowedRoles }) => {
 };
 
 export default PrivateRoute;
+
+      {/* */}

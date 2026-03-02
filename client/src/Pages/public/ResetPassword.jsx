@@ -33,6 +33,8 @@ const ResetPassword = () => {
         <h3 className="fw-bold text-center mb-3" style={{ color: "var(--primary)" }}>
           Set New Password
         </h3>
+        
+      {/* */}
 
         <form onSubmit={handleReset}>
           <input
