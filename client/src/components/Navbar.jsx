@@ -8,9 +8,9 @@ import "../style/navbar.css";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState({ token: getToken(), role: getRole() });
+  const [user, setUser] = useState({ token: null, role: null });
 
- 
+  // Read storage on mount & location change
   useEffect(() => {
     setUser({ token: getToken(), role: getRole() });
   }, [location]);
@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     if (!user.token) return navigate("/");
-    
+
     const dashboardRoutes = {
       student: "/studentdashboard",
       tutor: "/tutordashboard",
@@ -57,29 +57,59 @@ const Navbar = () => {
           <ul className="navbar-nav ms-auto align-items-center gap-3">
             {!user.token ? (
               <>
-                <li className="nav-item"><Link to="/" className="nav-link nav-hover">Home</Link></li>
-                <li className="nav-item"><Link to="/login" className="nav-link nav-hover">Login</Link></li>
-                <li className="nav-item"><Link to="/signup" className="btn btn-brand rounded-pill px-4">Get Started</Link></li>
+                <li className="nav-item">
+                  <Link to="/" className="nav-link nav-hover">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/login" className="nav-link nav-hover">
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/signup"
+                    className="btn btn-brand rounded-pill px-4"
+                  >
+                    Get Started
+                  </Link>
+                </li>
               </>
             ) : (
               <>
-                
                 {user.role === "student" && (
-                  <li className="nav-item"><Link to="/browser" className="nav-link nav-hover">Browse Tutors</Link></li>
+                  <li className="nav-item">
+                    <Link to="/browser" className="nav-link nav-hover">
+                      Browse Tutors
+                    </Link>
+                  </li>
                 )}
-                
-                
+
                 <li className="nav-item">
-                  <Link 
-                    to={user.role === "admin" ? "/admindashboard" : `/${user.role}dashboard`} 
-                    className={`nav-link ${user.role === "admin" ? "text-danger fw-bold" : "nav-hover"}`}
+                  <Link
+                    to={
+                      user.role === "admin"
+                        ? "/admindashboard"
+                        : `/${user.role}dashboard`
+                    }
+                    className={`nav-link ${
+                      user.role === "admin"
+                        ? "text-danger fw-bold"
+                        : "nav-hover"
+                    }`}
                   >
                     Dashboard
                   </Link>
                 </li>
 
                 <li className="nav-item">
-                  <button onClick={handleLogout} className="btn btn-brand rounded-pill px-4">Logout</button>
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-brand rounded-pill px-4"
+                  >
+                    Logout
+                  </button>
                 </li>
               </>
             )}
