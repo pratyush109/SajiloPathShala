@@ -1,22 +1,4 @@
 
-
-
-
-body {
-  /* Prevents Bootstrap from adding weird padding when modals or loaders trigger */
-  padding-right: 0px !important; 
-  margin: 0;
-  width: 100vw;
-  overflow-x: hidden;
-}
-/* Add this to your index.css or App.css */
-html {
-  overflow-y: scroll; /* Forces scrollbar space even if page is short */
-}
-
-body {
-  padding-right: 0px !important; /* Prevents Bootstrap from adding padding */
-}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

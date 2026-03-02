@@ -7,20 +7,13 @@
 }
 
 .admin-layout {
-  display: flex;
-  flex-direction: row;
   background: var(--bg-soft);
-  min-height: 100vh;
 }
 
-/* Sidebar */
 .admin-sidebar {
   width: 260px;
   background: white;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
 }
 
 .admin-logo {
@@ -29,11 +22,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.5px;
-  padding: 20px;
-  text-align: center;
 }
 
-/* Sidebar Buttons */
 .sidebar-btn {
   border: none;
   border-radius: 12px;
@@ -42,9 +32,6 @@
   color: var(--gray);
   transition: all 0.2s;
   text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .sidebar-btn:hover {
@@ -58,8 +45,7 @@
   box-shadow: 0 4px 12px rgba(106, 17, 203, 0.2);
 }
 
-/* Cards */
-.stat-card, .chart-card {
+.stat-card {
   background: white;
   border-radius: 16px;
   padding: 24px;
@@ -67,7 +53,7 @@
   transition: transform 0.2s;
 }
 
-.stat-card:hover, .chart-card:hover {
+.stat-card:hover {
   transform: translateY(-5px);
 }
 
@@ -87,7 +73,12 @@
   letter-spacing: 0.5px;
 }
 
-/* Chart Containers */
+.chart-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+}
+
 .chart-container {
   height: 300px;
   width: 100%;
@@ -98,12 +89,9 @@
   width: 100%;
 }
 
-/* Tables */
 .admin-table {
   background: white;
   border-radius: 20px;
-  width: 100%;
-  overflow-x: auto;
 }
 
 .table thead th {
@@ -122,7 +110,7 @@
   font-size: 14px;
 }
 
-/* Badges */
+/* Badge Styles */
 .badge-soft {
   padding: 6px 12px;
   border-radius: 8px;
@@ -138,22 +126,20 @@
 .status-approved { background: #dcfce7; color: #166534; }
 .status-rejected { background: #fee2e2; color: #991b1b; }
 
-/* Responsive Breakpoints */
-
 /* Laptop / Tablet */
 @media (max-width: 992px) {
   .admin-sidebar { width: 80px; }
   .admin-logo, .sidebar-btn span { display: none; }
   .sidebar-btn { text-align: center; padding: 12px 0; }
-  .stat-number { font-size: 1.75rem; }
 }
 
-/* Tablet / Small Devices */
+/* Tablet / Small devices */
 @media (max-width: 768px) {
   .admin-layout { flex-direction: column; }
-  .admin-sidebar { width: 100%; flex-direction: row; justify-content: space-around; height: auto; }
+  .admin-sidebar { width: 100%; height: auto; display: flex; flex-direction: row; justify-content: space-around; }
   .sidebar-btn { padding: 10px; font-size: 12px; }
   .stat-card, .chart-card { padding: 16px; margin-bottom: 16px; }
+  .stat-number { font-size: 1.5rem; }
   .chart-container { height: 250px; }
 }
 

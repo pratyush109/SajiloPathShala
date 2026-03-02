@@ -8,8 +8,6 @@
 /* Page Background */
 .app-bg {
   background: linear-gradient(135deg, #f9fafb, #eef2ff);
-  min-height: 100vh;
-  padding: 20px;
 }
 
 /* Card */
@@ -17,16 +15,12 @@
   border: 1px solid var(--card-border);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
-  padding: 20px;
-  transition: all 0.2s ease;
 }
 
 /* Heading */
 .brand-heading {
   color: var(--brand-purple-dark);
   font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 12px;
 }
 
 /* Buttons */
@@ -35,8 +29,6 @@
   border: none;
   font-weight: 600;
   padding: 10px 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .btn-brand:hover {
@@ -48,8 +40,6 @@
   padding: 4px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--brand-purple), #a78bfa);
-  display: inline-block;
-  transition: all 0.2s ease;
 }
 
 /* Inputs Focus */
@@ -57,40 +47,47 @@
   border-color: var(--brand-purple);
   box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
 }
-
 /* Responsive Breakpoints */
-
-/* Large Screens / Desktop */
-@media (max-width: 1200px) {
-  .brand-card { padding: 18px; border-radius: 14px; }
-  .brand-heading { font-size: 1.4rem; }
-  .btn-brand { padding: 9px 18px; font-size: 1rem; }
-  .profile-ring { padding: 3.5px; }
-}
-
-/* Laptop / Medium screens */
-@media (max-width: 992px) {
-  .brand-card { padding: 16px; border-radius: 14px; }
-  .brand-heading { font-size: 1.3rem; }
-  .btn-brand { padding: 8px 16px; font-size: 0.95rem; }
-  .profile-ring { padding: 3px; }
-  .app-bg { padding: 16px; }
-}
-
-/* Tablet / Small devices */
 @media (max-width: 768px) {
-  .brand-card { padding: 14px; border-radius: 12px; }
-  .brand-heading { font-size: 1.25rem; }
-  .btn-brand { padding: 7px 14px; font-size: 0.9rem; }
-  .profile-ring { padding: 2.5px; }
-  .app-bg { padding: 14px; background: linear-gradient(135deg, #f9fafb, #e6e6ff); }
+  .brand-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .brand-heading {
+    font-size: 1.25rem;
+  }
+
+  .btn-brand {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .profile-ring {
+    padding: 3px;
+  }
+
+  .app-bg {
+    background: linear-gradient(135deg, #f9fafb, #e6e6ff);
+  }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
-  .brand-card { padding: 12px; border-radius: 10px; }
-  .brand-heading { font-size: 1.1rem; }
-  .btn-brand { padding: 6px 12px; font-size: 0.85rem; }
-  .profile-ring { padding: 2px; }
-  .app-bg { padding: 12px; }
+  .brand-card {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .brand-heading {
+    font-size: 1.1rem;
+  }
+
+  .btn-brand {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .profile-ring {
+    padding: 2px;
+  }
 }

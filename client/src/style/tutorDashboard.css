@@ -5,10 +5,8 @@
   --bg-soft: #f6f3ff;
 }
 
-/* DASHBOARD BACKGROUND */
 .dashboard-bg {
   background: var(--bg-soft);
-  padding: 1rem;
 }
 
 /* HEADER */
@@ -16,17 +14,15 @@
   background: linear-gradient(135deg, var(--brand), var(--brand-dark));
   color: white;
   border-radius: 20px;
-  padding: 24px 32px;
   box-shadow: 0 10px 30px rgba(106,17,203,0.2);
 }
 
-/* STAT CARDS */
+/* STAT CARD */
 .brand-card {
   background: white;
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
   transition: 0.2s ease;
-  margin-bottom: 1rem;
 }
 
 .brand-card:hover {
@@ -64,7 +60,6 @@
 .icon-brand { background: var(--brand); }
 .icon-dark { background: var(--brand-dark); }
 
-/* CALENDAR BOX */
 .calendar-box {
   background: white;
   border-radius: 18px;
@@ -80,13 +75,11 @@
 .schedule-item:last-child {
   border-bottom: none;
 }
-
-/* Tablet & Small Laptops */
+/* Responsive Dashboard */
 @media (max-width: 1024px) {
   .dashboard-header {
     padding: 18px 20px;
     border-radius: 16px;
-    text-align: center;
   }
 
   .stat-card {
@@ -110,11 +103,13 @@
   }
 }
 
-/* Tablets & Large Mobile */
 @media (max-width: 768px) {
+  .dashboard-header {
+    text-align: center;
+  }
+
   .stat-card {
     width: 100%;
-    padding: 16px;
   }
 
   .stat-label {
@@ -135,16 +130,12 @@
   }
 }
 
-/* Small Mobile */
 @media (max-width: 480px) {
   .dashboard-header {
     padding: 14px 16px;
   }
 
   .stat-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
     padding: 14px;
   }
 

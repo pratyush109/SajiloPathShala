@@ -11,18 +11,37 @@ export const register = async (req, res) => {
   try {
     const { fullName, email, password, role } = req.body;
 
-    if (!fullName || !email || !password || !role) {
+    // Basic required fields
+    if (!fullName?.trim() || !email?.trim() || !password || !role?.trim()) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (!email.includes("@") || !email.includes(".")) {
+    // Full name length check
+    if (fullName.length < 3) {
+      return res.status(400).json({ message: "Full name must be at least 3 characters" });
+    }
+
+    // Email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
 
-    if (password.length < 6) {
-      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    // Password strength check
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ 
+        message: "Password must be at least 6 characters and include uppercase, lowercase, and a number" 
+      });
     }
 
+    // Role check
+    const allowedRoles = ["student", "tutor", "admin"];
+    if (!allowedRoles.includes(role.toLowerCase())) {
+      return res.status(400).json({ message: `Role must be one of: ${allowedRoles.join(", ")}` });
+    }
+
+    // Check for existing user
     const existingUser = await Users.findOne({ where: { email } });
     if (existingUser) return res.status(409).json({ message: "Email already exists" });
 
@@ -39,37 +58,6 @@ export const register = async (req, res) => {
       message: "User registered successfully",
       data: { id: user.id, fullName: user.fullName, email: user.email, role: user.role },
     });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password)
-      return res.status(400).json({ message: "Email and password required" });
-
-    const user = await Users.findOne({ where: { email } });
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: "Incorrect password" });
-
-    const access_token = generateToken({ id: user.id, email: user.email, role: user.role, fullName: user.fullName });
-res.status(200).json({
-  message: "Login successful",
-  data: {
-    access_token,
-    role: user.role,
-    fullName: user.fullName,
-    email: user.email,
-    id: user.id
-  },
-});
-
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -113,7 +101,17 @@ export const resetPassword = async (req, res) => {
     const { token } = req.params;
     const { password } = req.body;
 
-    if (!token || !password) return res.status(400).json({ message: "Invalid request" });
+    if (!token || !password?.trim()) {
+      return res.status(400).json({ message: "Invalid request" });
+    }
+
+    // Password strength check (same rules as registration)
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ 
+        message: "Password must be at least 6 characters and include uppercase, lowercase, and a number" 
+      });
+    }
 
     const user = await Users.findOne({ where: { resetToken: token } });
     if (!user) return res.status(400).json({ message: "Invalid token" });

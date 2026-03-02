@@ -4,7 +4,6 @@
   --card-border: #eef2f7;
   --bg-white: #ffffff;
   --text-dark: #111827;
-  --text-muted: #4b5563;
 }
 
 /* THE CARD */
@@ -13,26 +12,21 @@
   border: 1px solid var(--card-border);
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(124, 58, 237, 0.08);
-  padding: 2rem;
-  transition: all 0.2s ease;
-  max-width: 500px;
-  margin: 1rem auto;
+  /* This keeps it from jumping when tutors load */
+  transition: none; 
 }
 
-/* TITLE */
 .filter-title {
   font-weight: 700;
   color: var(--brand-purple-dark);
   font-size: 1.15rem;
-  margin-bottom: 1rem;
 }
 
 /* SECTION LABELS */
 .filter-label {
   font-weight: 600;
-  color: var(--text-muted);
+  color: #4b5563;
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
 }
 
 /* DROPDOWN STYLING */
@@ -43,8 +37,6 @@
   font-size: 0.95rem;
   color: var(--text-dark);
   transition: all 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .custom-select:focus {
@@ -62,7 +54,6 @@
   font-weight: 600;
   padding: 12px;
   transition: all 0.2s ease;
-  cursor: pointer;
 }
 
 .btn-clear:hover {
@@ -72,40 +63,54 @@
   transform: translateY(-1px);
 }
 
+/* Prevent layout shift on small screens */
 /* Responsive Breakpoints */
-
-/* Large / Desktop */
-@media (max-width: 1200px) {
-  .filter-card { padding: 1.8rem; border-radius: 18px; }
-  .filter-title { font-size: 1.1rem; }
-  .filter-label { font-size: 0.88rem; }
-  .custom-select { padding: 9px 14px; font-size: 0.9rem; }
-  .btn-clear { padding: 11px; font-size: 0.9rem; }
-}
-
-/* Laptop / Medium screens */
-@media (max-width: 992px) {
-  .filter-card { padding: 1.6rem; border-radius: 16px; }
-  .filter-title { font-size: 1.05rem; }
-  .filter-label { font-size: 0.87rem; }
-  .custom-select { padding: 8px 13px; font-size: 0.88rem; }
-  .btn-clear { padding: 10px; font-size: 0.88rem; }
-}
-
-/* Tablet / Small devices */
 @media (max-width: 768px) {
-  .filter-card { padding: 1.4rem; border-radius: 14px; }
-  .filter-title { font-size: 1rem; }
-  .filter-label { font-size: 0.85rem; }
-  .custom-select { padding: 7px 12px; font-size: 0.85rem; }
-  .btn-clear { padding: 9px; font-size: 0.85rem; }
+  .filter-card {
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .filter-title {
+    font-size: 1rem;
+  }
+
+  .filter-label {
+    font-size: 0.85rem;
+  }
+
+  .custom-select {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-clear {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
-  .filter-card { padding: 1rem; border-radius: 12px; }
-  .filter-title { font-size: 0.95rem; }
-  .filter-label { font-size: 0.8rem; }
-  .custom-select { padding: 6px 10px; font-size: 0.82rem; }
-  .btn-clear { padding: 8px; font-size: 0.82rem; }
+  .filter-card {
+    border-radius: 12px;
+    padding: 0.8rem;
+  }
+
+  .filter-title {
+    font-size: 0.95rem;
+  }
+
+  .filter-label {
+    font-size: 0.8rem;
+  }
+
+  .custom-select {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .btn-clear {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
 }
