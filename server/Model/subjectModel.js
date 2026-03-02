@@ -10,3 +10,4 @@ const Subject = sequelize.define("Subject", {
 });
 
 export default Subject;
+/*  */

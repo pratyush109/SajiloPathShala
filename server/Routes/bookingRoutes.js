@@ -18,3 +18,4 @@ router.get("/", authenticateToken, getBookingsForUser);
 router.patch("/:id", authenticateToken, updateBookingStatus);
 
 export default router;
+/*  */

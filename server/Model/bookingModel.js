@@ -31,3 +31,4 @@ Booking.belongsTo(User, { as: "student", foreignKey: "studentId" });
 Booking.belongsTo(User, { as: "tutor", foreignKey: "tutorId" });
 
 export default Booking;
+/*  */

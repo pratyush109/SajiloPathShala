@@ -30,3 +30,4 @@ export const getAllBookings = async (req, res) => {
   }
 };
 
+/*  */

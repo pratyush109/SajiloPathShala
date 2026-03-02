@@ -43,3 +43,4 @@ User.hasOne(TutorProfile, { foreignKey: "userId" });
 TutorProfile.belongsTo(User, { foreignKey: "userId" });
 
 export default TutorProfile;
+/*  */
