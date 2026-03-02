@@ -6,16 +6,19 @@ const PrivateRoute = ({ allowedRoles }) => {
   const userRole = getRole();
   const location = useLocation();
 
-  // 1. If not logged in, send to login and save the attempted URL
+  // Not logged in → redirect to login
   if (!token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // 2. If user tries to access a route they don't have permission for
+  // Role not allowed → redirect to their dashboard
   if (allowedRoles && !allowedRoles.includes(userRole)) {
-    const defaultDashboard = 
-      userRole === "admin" ? "/admindashboard" : 
-      userRole === "tutor" ? "/tutordashboard" : "/studentdashboard";
+    const defaultDashboard =
+      userRole === "admin"
+        ? "/admindashboard"
+        : userRole === "tutor"
+        ? "/tutordashboard"
+        : "/studentdashboard";
 
     return <Navigate to={defaultDashboard} replace />;
   }
