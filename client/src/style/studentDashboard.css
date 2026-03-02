@@ -5,29 +5,41 @@
   --bg-soft: #f5f3ff;
 }
 
-
+/* Dashboard Background */
 .dashboard-bg {
   background: var(--bg-soft);
+  padding: 2rem;
 }
 
+/* Action Banner */
 .action-banner {
   background: linear-gradient(90deg, var(--brand), var(--brand-dark));
   color: white;
   padding: 18px 24px;
   border-radius: 14px;
+  transition: all 0.2s ease;
 }
 
+/* Buttons */
 .btn-brand {
   background: linear-gradient(90deg, var(--brand), var(--brand-dark));
   color: white;
   border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .btn-brand:hover {
   opacity: 0.9;
 }
 
-.stat-card {
+/* Statistic Card */
+.stat-card,
+.soft-card,
+.booking-item,
+.profile-card {
   background: white;
   padding: 20px;
   border-radius: 14px;
@@ -35,47 +47,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.25s ease;
 }
 
-.soft-card {
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-}
-
-.section-title {
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--brand-dark);
-}
-
-
-.scroll-list {
-  max-height: 380px;
-  overflow-y: auto;
-}
-
-
-.booking-item {
-  background: white;
-  border-radius: 14px;
-  padding: 14px 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: 0.25s ease;
-}
-
+/* Booking Item Hover Effect */
 .booking-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(0,0,0,0.08);
 }
 
-
-
+/* Profile Card Gradient */
 .profile-card {
   background: linear-gradient(145deg, #ffffff, #f6f0ff);
   border: 1px solid #efe4ff;
 }
 
+/* Scrollable List */
+.scroll-list {
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+/* Sidebar */
 .app-sidebar {
   width: 250px;
   min-height: 100vh;
@@ -85,8 +78,8 @@
   display: flex;
   flex-direction: column;
   box-shadow: 4px 0 20px rgba(106, 17, 203, 0.2);
+  transition: all 0.3s ease;
 }
-
 
 .sidebar-user {
   background: rgba(255,255,255,0.08);
@@ -103,11 +96,10 @@
   padding: 10px 14px;
   border-radius: 10px;
   color: #e9d5ff;
-  border: none;
   background: transparent;
   width: 100%;
   text-align: left;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .sidebar-link:hover {
@@ -121,38 +113,18 @@
   font-weight: 600;
 }
 
-
-
 /* Responsive Dashboard */
-@media (max-width: 1024px) {
-  .app-sidebar {
-    width: 200px;
-    padding: 18px 12px;
-  }
 
-  .sidebar-user {
-    font-size: 13px;
-    padding: 8px 10px;
-  }
-
-  .sidebar-link {
-    font-size: 0.9rem;
-    padding: 8px 10px;
-    gap: 10px;
-  }
-
-  .action-banner {
-    padding: 16px 20px;
-  }
-
-  .stat-card,
-  .soft-card,
-  .booking-item,
-  .profile-card {
-    padding: 16px;
-  }
+/* Large Laptop */
+@media (max-width: 1200px) {
+  .app-sidebar { width: 220px; padding: 20px 14px; }
+  .sidebar-user { font-size: 13px; padding: 8px 10px; }
+  .sidebar-link { font-size: 0.95rem; padding: 8px 10px; gap: 10px; }
+  .action-banner { padding: 16px 20px; }
+  .stat-card, .soft-card, .booking-item, .profile-card { padding: 18px; }
 }
 
+/* Tablet */
 @media (max-width: 768px) {
   .app-sidebar {
     width: 100%;
@@ -162,56 +134,24 @@
     padding: 12px;
   }
 
-  .sidebar-link {
-    flex-shrink: 0;
-  }
+  .sidebar-link { flex-shrink: 0; }
 
-  .dashboard-bg {
-    padding: 1rem;
-  }
+  .dashboard-bg { padding: 1rem; }
 
   .stat-card,
   .soft-card,
   .booking-item,
-  .profile-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  .profile-card { flex-direction: column; align-items: flex-start; }
 
-  .scroll-list {
-    max-height: 300px;
-  }
+  .scroll-list { max-height: 300px; }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
-  .app-sidebar {
-    padding: 8px;
-  }
-
-  .sidebar-user {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-
-  .sidebar-link {
-    font-size: 0.85rem;
-    padding: 6px 8px;
-  }
-
-  .action-banner {
-    padding: 12px 16px;
-    font-size: 0.9rem;
-  }
-
-  .stat-card,
-  .soft-card,
-  .booking-item,
-  .profile-card {
-    padding: 12px;
-    width: 100%;
-  }
-
-  .scroll-list {
-    max-height: 220px;
-  }
+  .app-sidebar { padding: 8px; }
+  .sidebar-user { font-size: 12px; padding: 6px 8px; }
+  .sidebar-link { font-size: 0.85rem; padding: 6px 8px; }
+  .action-banner { padding: 12px 16px; font-size: 0.9rem; }
+  .stat-card, .soft-card, .booking-item, .profile-card { padding: 12px; width: 100%; }
+  .scroll-list { max-height: 220px; }
 }
