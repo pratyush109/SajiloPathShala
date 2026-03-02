@@ -3,23 +3,32 @@
   --brand-purple-dark: #6a11cb;
 }
 
-
+/* WRAPPER */
 .login-wrapper {
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
-
-.login-box {
+/* BOX */
+.login-box,
+.auth-form {
   max-width: 420px;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
-
+/* LOGO */
 .login-logo {
   width: 70px;
+  margin-bottom: 1.5rem;
 }
 
-
+/* INPUTS */
 .login-input .input-group-text {
   background: #f3f4f6;
   border-right: 0;
@@ -30,50 +39,39 @@
   box-shadow: none !important;
 }
 
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--brand-purple);
+  box-shadow: 0 0 0 0.15rem rgba(142, 45, 226, 0.15);
+}
 
-.btn-brand {
+/* BUTTONS */
+.btn-brand,
+.btn-success {
   background: linear-gradient(45deg, var(--brand-purple-dark), var(--brand-purple));
   border: none;
   color: white;
   border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.2s ease;
 }
 
-.btn-brand:hover {
-  opacity: 0.95;
-}
+.btn-brand:hover { opacity: 0.95; }
+.btn-success:hover { opacity: 0.92; }
 
+/* LINKS */
 .brand-link {
   color: var(--brand-purple);
   text-decoration: none;
 }
+.brand-link:hover { text-decoration: underline; }
+.text-success { color: var(--brand-purple) !important; }
+a { text-decoration: none !important; }
 
-.brand-link:hover {
-  text-decoration: underline;
-}
-
-
-.login-art {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-}
-
-.btn-success {
-  background: linear-gradient(45deg, var(--brand-purple-dark), var(--brand-purple));
-  border: none;
-}
-.btn-success:hover { opacity: 0.92; }
-
-
-.text-success {
-  color: var(--brand-purple) !important;
-}
-
-a {
-  text-decoration: none !important;
-}
-
+/* ART/IMAGE BACKGROUND */
+.login-art,
 .auth-image {
   background-size: cover;
   background-position: center;
@@ -81,33 +79,22 @@ a {
   height: 100vh;
 }
 
+/* Responsive Breakpoints */
 
-.auth-form {
-  max-width: 420px;
-  width: 100%;
-}
-
-
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--brand-purple);
-  box-shadow: 0 0 0 0.15rem rgba(142, 45, 226, 0.15);
-}
-
-/* Responsive Login/Auth */
-@media (max-width: 768px) {
+/* Laptop / Medium screens */
+@media (max-width: 992px) {
   .login-wrapper,
   .login-art,
   .auth-image {
     height: auto;
     min-height: 100vh;
+    padding: 2rem 1.5rem;
   }
 
   .login-box,
   .auth-form {
     max-width: 90%;
-    margin: 0 auto;
-    padding: 1.5rem;
+    padding: 1.8rem;
   }
 
   .login-logo {
@@ -116,16 +103,40 @@ a {
 
   .btn-brand,
   .btn-success {
-    width: 100%;
+    padding: 11px 0;
+  }
+}
+
+/* Tablet / Small devices */
+@media (max-width: 768px) {
+  .login-wrapper,
+  .login-art,
+  .auth-image {
+    padding: 1.8rem 1.2rem;
+  }
+
+  .login-box,
+  .auth-form {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .login-logo {
+    width: 55px;
+  }
+
+  .btn-brand,
+  .btn-success {
     padding: 10px 0;
   }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
   .login-wrapper,
   .login-art,
   .auth-image {
-    padding: 1rem 0;
+    padding: 1rem 1rem;
   }
 
   .login-box,
