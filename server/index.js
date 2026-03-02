@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 import authRouter from "./Routes/authRoutes.js";
 import bookingRouter from "./Routes/bookingRoutes.js";
-import reviewRouter from "./Routes/reviewRoutes.js";
+
 import tutorRoutes from "./Routes/tutorRoutes.js";
 import studentRoutes from "./Routes/studentRoutes.js";
 import subjectRoutes from "./Routes/subjectRoutes.js";
@@ -23,7 +23,7 @@ connection();
 
 app.use("/api/auth", authRouter);
 app.use("/api/booking", bookingRouter);
-app.use("/api/review", reviewRouter);
+
 app.use("/api/tutor", tutorRoutes);
 app.use("/api/subjects", subjectRoutes);
 
