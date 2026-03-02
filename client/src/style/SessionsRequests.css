@@ -1,9 +1,18 @@
-:root { --primary: #6a11cb; --primary-light: #8e2de2; --dark: #111827; --gray: #6b7280; --bg-soft: #f8f9fc; }
+:root {
+  --primary: #6a11cb;
+  --primary-light: #8e2de2;
+  --dark: #111827;
+  --gray: #6b7280;
+  --bg-soft: #f8f9fc;
+}
 
 /* SESSION CARD */
 .session-card {
   border-radius: 16px;
   background: white;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
 }
 
 /* Divider */
@@ -17,6 +26,9 @@
   color: white;
   border: none;
   font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .btn-brand:hover {
@@ -27,6 +39,9 @@
   border: 1px solid var(--primary);
   color: var(--primary);
   background: transparent;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .btn-outline-brand:hover {
@@ -40,6 +55,8 @@
   padding: 6px 12px;
   border-radius: 20px;
   font-weight: 600;
+  display: inline-block;
+  text-align: center;
 }
 
 .status-approved {
@@ -52,12 +69,52 @@
   color: #dc2626;
 }
 
-/* Empty icon */
+/* Brand Icon */
 .brand-icon {
   color: var(--primary-light);
+  font-size: 1.2rem;
 }
 
-/* Responsive Session Card */
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Large Laptop */
+@media (max-width: 1200px) {
+  .session-card {
+    padding: 1.3rem;
+  }
+
+  .btn-brand,
+  .btn-outline-brand {
+    padding: 9px 18px;
+    font-size: 0.95rem;
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}
+
+/* Laptop / Medium screens */
+@media (max-width: 992px) {
+  .session-card {
+    padding: 1.2rem;
+  }
+
+  .btn-brand,
+  .btn-outline-brand {
+    width: 100%;
+    padding: 9px 0;
+    font-size: 0.9rem;
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}
+
+/* Tablet */
 @media (max-width: 768px) {
   .session-card {
     border-radius: 14px;
@@ -77,6 +134,7 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
   .session-card {
     border-radius: 12px;
